@@ -4,16 +4,20 @@
     <meta charset="UTF-8" />
     <title>Redirecting…</title>
     <script>
-      // Get the current path, query string, and hash
-      var path = window.location.pathname;
-      var search = window.location.search;
-      var hash = window.location.hash;
+      // Wait for DOM to be ready
+      document.addEventListener("DOMContentLoaded", function () {
+        var pathname = window.location.pathname;
+        var search = window.location.search;
+        var hash = window.location.hash;
 
-      // Remove the "/My-Portfolio" part if it's already there
-      var cleanPath = path.replace(/^\/My-Portfolio/, '');
+        // Extract the path after the repo name
+        var repoName = "/My-Portfolio";
+        var relativePath = pathname.startsWith(repoName) ? pathname.slice(repoName.length) : pathname;
 
-      // Redirect to /My-Portfolio + original path
-      window.location.replace('/My-Portfolio' + cleanPath + search + hash);
+        // Redirect to the app with the full route
+        var newUrl = repoName + relativePath + search + hash;
+        window.location.replace(newUrl);
+      });
     </script>
   </head>
   <body>
