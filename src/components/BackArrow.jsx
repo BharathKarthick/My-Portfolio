@@ -8,7 +8,7 @@ const BackArrow = () => {
   return (
     <button
       onClick={() => navigate(-1)}
-      className="fixed bottom-9 left-2 md:bottom-4 md:left-4 text-white bg-[#ff4500]  hover:text-[#ff4500] hover:bg-white p-1 md:p-2 rounded-full shadow-md z-50"
+      className="fixed bottom-9 left-2 md:bottom-4 md:left-4 text-white bg-[#ff4500]  hover:text-[#ff4500] hover:bg-white p-2 md:p-2 rounded-full shadow-md z-50"
       aria-label="Go back"
     >
       <ArrowLeft size={24} />
