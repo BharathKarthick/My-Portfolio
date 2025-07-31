@@ -17,7 +17,7 @@ const projects = [
     tools: ["HTML5", "CSS3","TailwindCss" , "React Js" , "JavaScript"],
     frontend: "https://github.com/BharathKarthick/My-Portfolio",
     backend: "https://github.com/BharathKarthick/My-Portfolio",
-    demo: "/",
+    demo: "https://bharathkarthick.github.io/My-Portfolio/",
     image: project1Img,
   },
   {
