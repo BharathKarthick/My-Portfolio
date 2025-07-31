@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+/* index.css or global.css */
+/* * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+} */
+
+@media screen and (min-width:800px) and (max-width:2568px){
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fadeInUp {
+  animation: fadeInUp 1s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(300px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.animate-fadeInRight {
+  animation: fadeInRight 1s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+@keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-300px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.animate-fadeInLeft {
+  animation: fadeInLeft 1s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(300px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fadeInDown {
+  animation: fadeInDown 1s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@media screen and (min-width:1600px) and (max-width:2568px){
+.cont{
+  margin-top: 20vh;
+}
+.cont p{
+  font-size: 40px;
+}
+.cont h1{
+  font-size: 80px;
+}
+.about{
+  margin-top: 15vh;
+  max-width: 60%;
+}
+.ima{
+  width: 80%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  
+}
+.skill{
+  margin-top: 15vh;
+}
+.exp{
+  margin-top: 15vh;
+}
+.exp1{
+  max-width: 60%;
+}
+.pro{
+  padding-block: 15vh;
+}
+}

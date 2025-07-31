@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+.font-stylish {
+  font-family: 'Stylish', sans-serif;
+}
