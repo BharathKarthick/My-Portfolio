@@ -1,7 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="refresh" content="0; URL=/My-Portfolio/home" />
+    <meta charset="UTF-8" />
+    <title>Redirecting…</title>
+    <script>
+      // Get the current path, query string, and hash
+      var path = window.location.pathname;
+      var search = window.location.search;
+      var hash = window.location.hash;
+
+      // Remove the "/My-Portfolio" part if it's already there
+      var cleanPath = path.replace(/^\/My-Portfolio/, '');
+
+      // Redirect to /My-Portfolio + original path
+      window.location.replace('/My-Portfolio' + cleanPath + search + hash);
+    </script>
   </head>
-  <body></body>
+  <body>
+    <p>Redirecting…</p>
+  </body>
 </html>
