@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "../components/Navbar";
 import background from "../image/image1.jpg";
+import { Link } from "react-router-dom";
 import "../App.css";
 
 const jobTitles = ["Web Developer", "UI/UX Designer"];
@@ -47,12 +48,12 @@ function Home() {
 
             <p className="text-2xl lg:text-3xl">From Chennai</p>
 
-            <a
-              href="/contact"
+            <Link
+              to="/contact"
               className="inline-block w-fit mt-6 px-6 py-3 bg-[#ff4500] text-lg md:text-xl text-white rounded-full hover:bg-white hover:text-[#ff4500] transition border-2 border-transparent hover:border-[#ff4500]"
             >
               Hire Me
-            </a>
+            </Link>
           </div>
         </div>
       </div>
