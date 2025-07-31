@@ -26,7 +26,7 @@ function Home() {
         <Navbar />
 
         {/* Content Section */}
-        <div className=" cont flex items-center h-full px-6 md:px-48">
+        <div className=" cont flex items-center h-full pt-20 md:pt-0 px-6 md:px-48">
           <div className="flex flex-col font-stylish space-y-4 text-left">
             <p className="text-2xl md:text-[32px]">Hello</p>
 
