@@ -15,9 +15,9 @@ const projects = [
     title: "Portfolio",
     description: "My portfolio showcases the web development projects I’ve built using modern tools and a focus on clean, responsive design.",
     tools: ["HTML5", "CSS3","TailwindCss" , "React Js" , "JavaScript"],
-    frontend: "https://frontend-link.com",
-    backend: "https://backend-link.com",
-    demo: "https://bharathkarthick.github.io/portfolio/#home",
+    frontend: "https://github.com/BharathKarthick/My-Portfolio",
+    backend: "https://github.com/BharathKarthick/My-Portfolio",
+    demo: "https://bharathkarthick.github.io/My-Portfolio/home",
     image: project1Img,
   },
   {
