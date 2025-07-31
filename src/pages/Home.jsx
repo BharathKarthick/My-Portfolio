@@ -48,7 +48,7 @@ function Home() {
             <p className="text-2xl lg:text-3xl">From Chennai</p>
 
             <a
-              href="/contact"
+              href="/My-Portfolio/contact"
               className="inline-block w-fit mt-6 px-6 py-3 bg-[#ff4500] text-lg md:text-xl text-white rounded-full hover:bg-white hover:text-[#ff4500] transition border-2 border-transparent hover:border-[#ff4500]"
             >
               Hire Me
