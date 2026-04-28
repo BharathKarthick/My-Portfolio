@@ -1,7 +1,7 @@
 import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 import { lazy, Suspense } from "react";
 
-const Intro      = lazy(() => import("./pages/intro"));
+const Intro      = lazy(() => import("./pages/Intro"));
 const Home       = lazy(() => import("./pages/Home"));
 const About      = lazy(() => import("./pages/About"));
 const Skill      = lazy(() => import("./pages/Skill"));
