@@ -1,5 +1,5 @@
 import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState } from "react";
 
 const Intro      = lazy(() => import("./pages/Intro"));
 const Home       = lazy(() => import("./pages/Home"));
@@ -18,26 +18,32 @@ const Loader = () => (
       borderRadius: '50%',
       animation: 'spin 0.8s linear infinite',
     }} />
-    <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
   </div>
 );
 
 function App() {
+  const [showIntro, setShowIntro] = useState(true);
+
   return (
-    <HashRouter>
-      <Suspense fallback={<Loader />}>
-        <Routes>
-          <Route path="/"           element={<Intro />} />
-          <Route path="/home"       element={<Home />} />
-          <Route path="/about"      element={<About />} />
-          <Route path="/skill"      element={<Skill />} />
-          <Route path="/experience" element={<Experience />} />
-          <Route path="/projects"   element={<Projects />} />
-          <Route path="/contact"    element={<Contact />} />
-          <Route path="*"           element={<Navigate to="/" replace />} />
-        </Routes>
-      </Suspense>
-    </HashRouter>
+    <>
+      {/* ✅ Intro Overlay */}
+      {showIntro && <Intro onDone={() => setShowIntro(false)} />}
+
+      <HashRouter>
+        <Suspense fallback={<Loader />}>
+          <Routes>
+            <Route path="/"           element={<Home />} />
+            <Route path="/home"       element={<Home />} />
+            <Route path="/about"      element={<About />} />
+            <Route path="/skill"      element={<Skill />} />
+            <Route path="/experience" element={<Experience />} />
+            <Route path="/projects"   element={<Projects />} />
+            <Route path="/contact"    element={<Contact />} />
+            <Route path="*"           element={<Navigate to="/" replace />} />
+          </Routes>
+        </Suspense>
+      </HashRouter>
+    </>
   );
 }
 
