@@ -1,88 +1,78 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import logo from "../image/logo.png";
+import LogoSVG from "./LogoSVG";
+import { X, Menu } from "lucide-react";
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
-  // Close menu on route change
+  useEffect(() => { setIsMobileMenuOpen(false); }, [location.pathname]);
   useEffect(() => {
-    setIsMobileMenuOpen(false);
-  }, [location.pathname]);
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const navItems = [
-    { name: "Home", path: "/" },
-    { name: "About Me", path: "/about" },
-    { name: "Skill", path: "/skill" },
+    { name: "Home", path: "/home" },
+    { name: "About", path: "/about" },
+    { name: "Skills", path: "/skill" },
     { name: "Experience", path: "/experience" },
-    { name: "Project", path: "/projects" },
-    { name: "Contact Me", path: "/contact" },
+    { name: "Projects", path: "/projects" },
+    { name: "Contact", path: "/contact" },
   ];
 
   return (
     <>
-      {/* Spacer to prevent overlap */}
-      <div className="h-20" />
-
-      <nav className="fixed top-0 left-0 w-full z-50 bg-[#0000023b] font-stylish">
-        <div className="max-w-7xl mx-auto flex justify-between items-center px-6 h-20">
-          {/* Logo */}
-          <Link to="/">
-            <img
-              src={logo}
-              alt="Logo"
-              className="max-h-[100px] w-auto object-contain"
-            />
+      <nav style={{
+        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
+        background: scrolled ? 'rgba(0,0,0,0.95)' : 'rgba(0,0,0,0.6)',
+        backdropFilter: 'blur(20px)',
+        borderBottom: scrolled ? '1px solid rgba(255,92,0,0.2)' : '1px solid transparent',
+        transition: 'all 0.3s ease',
+      }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px', height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Link to="/home" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 8 }}>
+            <LogoSVG size={36} />
+            <span style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: 15, color: 'white' }}>P. Bharath</span>
           </Link>
 
-          {/* Desktop Nav */}
-          <div className="hidden lg:flex space-x-6">
+          {/* Desktop nav */}
+          <div className="hide-mobile" style={{ display: 'flex', alignItems: 'center', gap: 32 }}>
             {navItems.map((item) => (
-              <NavLink
-                key={item.name}
-                to={item.path}
-                className={({ isActive }) =>
-                  `text-lg md:text-2xl font-medium transition ${
-                    isActive ? "text-[#ff4500]" : "text-white"
-                  } hover:text-[#ff4500]`
-                }
-              >
-                {item.name}
-              </NavLink>
+              <NavLink key={item.name} to={item.path} style={({ isActive }) => ({
+                color: isActive ? '#FF5C00' : '#cccccc',
+                fontFamily: "'Plus Jakarta Sans', sans-serif",
+                fontWeight: 600, fontSize: 14,
+                textDecoration: 'none', transition: 'color 0.2s',
+              })}>{item.name}</NavLink>
             ))}
           </div>
 
-          {/* Mobile/Tablet Burger Icon */}
-          <button
-            className="lg:hidden text-white text-3xl focus:outline-none"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? "✕" : "☰"}
+          <button className="hide-desktop" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer', padding: 4 }}>
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
 
-        {/* Mobile/Tablet Dropdown Menu */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden bg-white/10 backdrop-blur-md px-6 py-4 rounded-b-xl font-stylish">
-            <div className="flex flex-col space-y-4">
-              {navItems.map((item) => (
-                <NavLink
-                  key={item.name}
-                  to={item.path}
-                  className={({ isActive }) =>
-                    `text-lg md:text-xl text-center font-medium transition ${
-                      isActive ? "text-[#ff4500]" : "text-white"
-                    } hover:text-[#ff4500]`
-                  }
-                >
-                  {item.name}
-                </NavLink>
-              ))}
-            </div>
+          <div className="hide-desktop" style={{ background: 'rgba(0,0,0,0.97)', borderTop: '1px solid rgba(255,92,0,0.15)', padding: '20px 24px 28px' }}>
+            {navItems.map((item, i) => (
+              <NavLink key={item.name} to={item.path} style={({ isActive }) => ({
+                display: 'block', padding: '14px 0',
+                color: isActive ? '#FF5C00' : '#cccccc',
+                fontFamily: "'Plus Jakarta Sans', sans-serif",
+                fontWeight: 600, fontSize: 18, textDecoration: 'none',
+                borderBottom: i < navItems.length - 1 ? '1px solid rgba(255,255,255,0.06)' : 'none',
+                transition: 'color 0.2s',
+              })}>{item.name}</NavLink>
+            ))}
           </div>
         )}
       </nav>
+      <div style={{ height: 64 }} />
     </>
   );
 }

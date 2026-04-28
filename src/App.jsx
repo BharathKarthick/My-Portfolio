@@ -1,23 +1,42 @@
-import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Home from './pages/Home';
-import About from './pages/About';
-import Skill from './pages/Skill';
-import Experience from './pages/Experience';
-import Projects from './pages/Projects';
-import Contact from './pages/Contact';
+import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
+import { lazy, Suspense } from "react";
+
+const Intro      = lazy(() => import("./pages/Intro"));
+const Home       = lazy(() => import("./pages/Home"));
+const About      = lazy(() => import("./pages/About"));
+const Skill      = lazy(() => import("./pages/Skill"));
+const Experience = lazy(() => import("./pages/Experience"));
+const Projects   = lazy(() => import("./pages/Projects"));
+const Contact    = lazy(() => import("./pages/Contact"));
+
+const Loader = () => (
+  <div style={{ minHeight: '100vh', background: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <div style={{
+      width: 40, height: 40,
+      border: '2px solid rgba(255,92,0,0.2)',
+      borderTop: '2px solid #FF5C00',
+      borderRadius: '50%',
+      animation: 'spin 0.8s linear infinite',
+    }} />
+    <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+  </div>
+);
 
 function App() {
   return (
     <HashRouter>
-      <Routes>
-        <Route path="/" element={<Navigate to="/home" replace />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/skill" element={<Skill />} />
-        <Route path="/experience" element={<Experience />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path="/"           element={<Intro />} />
+          <Route path="/home"       element={<Home />} />
+          <Route path="/about"      element={<About />} />
+          <Route path="/skill"      element={<Skill />} />
+          <Route path="/experience" element={<Experience />} />
+          <Route path="/projects"   element={<Projects />} />
+          <Route path="/contact"    element={<Contact />} />
+          <Route path="*"           element={<Navigate to="/" replace />} />
+        </Routes>
+      </Suspense>
     </HashRouter>
   );
 }

@@ -1,49 +1,28 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import LogoSVG from "../components/LogoSVG";
 
 const Intro = () => {
   const navigate = useNavigate();
+  const [phase, setPhase] = useState(0);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      navigate("/home");
-    }, 5000);
-
-    return () => clearTimeout(timer);
+    const t1 = setTimeout(() => setPhase(1), 400);
+    const t2 = setTimeout(() => setPhase(2), 1800);
+    const t4 = setTimeout(() => navigate("/home"), 4200);
+    return () => [t1, t2, t4].forEach(clearTimeout);
   }, [navigate]);
 
   return (
-    <div className="h-screen bg-black flex items-center justify-center overflow-hidden">
-      <h1
-        className="text-red-600 text-2xl sm:text-3xl md:text-6xl font-mono border-r-4 border-red-600 whitespace-nowrap overflow-hidden"
-        style={{
-          width: "0",
-          animation:
-            "typing 4s steps(30, end) forwards, blink 0.75s step-end infinite, flicker 3s infinite",
-        }}
-      >
-        Welcome to My Portfolio
-      </h1>
-
-      <style>
-        {`
-          @keyframes typing {
-            from { width: 0 }
-            to { width: 24ch }
-          }
-          @keyframes blink {
-            50% { border-color: transparent }
-          }
-          @keyframes flicker {
-            0%, 100% { opacity: 1 }
-            10% { opacity: 0.8 }
-            30% { opacity: 0.6 }
-            50% { opacity: 0.7 }
-            70% { opacity: 0.9 }
-            90% { opacity: 0.95 }
-          }
-        `}
-      </style>
+    <div style={{ height: '100vh', background: '#000', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', position: 'relative' }}>
+      <div style={{ position: 'absolute', width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,92,0,0.12) 0%, transparent 70%)', transition: 'opacity 1s ease', opacity: phase >= 1 ? 1 : 0 }} />
+      <div style={{ transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)', opacity: phase >= 1 ? 1 : 0, transform: phase >= 1 ? 'scale(1)' : 'scale(0.7)', marginBottom: 24 }}>
+        <LogoSVG size={96} />
+      </div>
+      <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 'clamp(11px, 2.5vw, 14px)', color: 'rgba(255,255,255,0.5)', letterSpacing: '6px', textTransform: 'uppercase', transition: 'all 0.7s 0.3s ease', opacity: phase >= 2 ? 1 : 0, transform: phase >= 2 ? 'translateY(0)' : 'translateY(16px)' }}>
+        P. Bharath &mdash; Portfolio
+      </div>
+      <div style={{ position: 'absolute', bottom: 0, left: 0, height: 2, background: '#FF5C00', transition: 'width 3.4s cubic-bezier(0.4, 0, 0.2, 1)', width: phase >= 1 ? '100%' : '0%' }} />
     </div>
   );
 };
