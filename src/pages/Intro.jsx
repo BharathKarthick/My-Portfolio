@@ -1,44 +1,30 @@
-import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import LogoSVG from "../components/LogoSVG";
 
-const Intro      = lazy(() => import("./Intro"));
-const Home       = lazy(() => import("./Home"));
-const About      = lazy(() => import("./About"));
-const Skill      = lazy(() => import("./Skill"));
-const Experience = lazy(() => import("./Experience"));
-const Projects   = lazy(() => import("./Projects"));
-const Contact    = lazy(() => import("./Contact"));
+const Intro = () => {
+  const navigate = useNavigate();
+  const [phase, setPhase] = useState(0);
 
-const Loader = () => (
-  <div style={{ minHeight: '100vh', background: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-    <div style={{
-      width: 40, height: 40,
-      border: '2px solid rgba(255,92,0,0.2)',
-      borderTop: '2px solid #FF5C00',
-      borderRadius: '50%',
-      animation: 'spin 0.8s linear infinite',
-    }} />
-    <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
-  </div>
-);
+  useEffect(() => {
+    const t1 = setTimeout(() => setPhase(1), 400);
+    const t2 = setTimeout(() => setPhase(2), 1800);
+    const t4 = setTimeout(() => navigate("/home"), 4200);
+    return () => [t1, t2, t4].forEach(clearTimeout);
+  }, [navigate]);
 
-function App() {
   return (
-    <HashRouter>
-      <Suspense fallback={<Loader />}>
-        <Routes>
-          <Route path="/"           element={<Intro />} />
-          <Route path="/home"       element={<Home />} />
-          <Route path="/about"      element={<About />} />
-          <Route path="/skill"      element={<Skill />} />
-          <Route path="/experience" element={<Experience />} />
-          <Route path="/projects"   element={<Projects />} />
-          <Route path="/contact"    element={<Contact />} />
-          <Route path="*"           element={<Navigate to="/" replace />} />
-        </Routes>
-      </Suspense>
-    </HashRouter>
+    <div style={{ height: '100vh', background: '#000', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', position: 'relative' }}>
+      <div style={{ position: 'absolute', width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,92,0,0.12) 0%, transparent 70%)', transition: 'opacity 1s ease', opacity: phase >= 1 ? 1 : 0 }} />
+      <div style={{ transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)', opacity: phase >= 1 ? 1 : 0, transform: phase >= 1 ? 'scale(1)' : 'scale(0.7)', marginBottom: 24 }}>
+        <LogoSVG size={96} />
+      </div>
+      <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 'clamp(11px, 2.5vw, 14px)', color: 'rgba(255,255,255,0.5)', letterSpacing: '6px', textTransform: 'uppercase', transition: 'all 0.7s 0.3s ease', opacity: phase >= 2 ? 1 : 0, transform: phase >= 2 ? 'translateY(0)' : 'translateY(16px)' }}>
+        P. Bharath &mdash; Portfolio
+      </div>
+      <div style={{ position: 'absolute', bottom: 0, left: 0, height: 2, background: '#FF5C00', transition: 'width 3.4s cubic-bezier(0.4, 0, 0.2, 1)', width: phase >= 1 ? '100%' : '0%' }} />
+    </div>
   );
-}
+};
 
-export default App;
+export default Intro;
