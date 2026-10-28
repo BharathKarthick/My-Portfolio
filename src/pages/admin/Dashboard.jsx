@@ -35,7 +35,6 @@ export default function Dashboard({ token, onLogout }) {
     { label: "Projects", icon: FolderGit2 },
   ];
 
-  // Overview-kku thevaiyaana counts fetch seiyum logic
   const loadStats = useCallback(async () => {
     try {
       const [skillsRes, expRes, projRes] = await Promise.all([
@@ -63,7 +62,6 @@ export default function Dashboard({ token, onLogout }) {
     loadStats();
   }, [loadStats, section]);
 
-  // Mobile nav auto-scroll to center
   useEffect(() => {
     const activeIndex = navigation.findIndex((item) => item.label === section);
     if (activeIndex !== -1 && tabRefs.current[activeIndex]) {
@@ -77,16 +75,16 @@ export default function Dashboard({ token, onLogout }) {
 
   return (
     <div className="min-h-screen bg-black font-['Plus_Jakarta_Sans'] text-white">
-      {/* Top Header */}
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-black/95 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+      {/* Top Header & Sticky Mobile Navigation Wrapper */}
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-black/95 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#FF5C00]/40 bg-[#FF5C00]/10 text-[#FF5C00]">
-              <img src={logo} alt="Logo" className="h-7 w-7" />
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-[#FF5C00]/40 bg-[#FF5C00]/10 text-[#FF5C00]">
+              <img src={logo} alt="Logo" className="h-6 w-6 object-contain" />
             </div>
             <div>
-              <h1 className="text-base font-bold text-white">Portfolio Admin</h1>
-              <p className="text-xs text-white/50">Management Dashboard</p>
+              <h1 className="text-sm sm:text-base font-bold text-white">Portfolio Admin</h1>
+              <p className="text-[10px] sm:text-xs text-white/50">Management Dashboard</p>
             </div>
           </div>
 
@@ -99,19 +97,46 @@ export default function Dashboard({ token, onLogout }) {
             <button
               type="button"
               onClick={onLogout}
-              className="inline-flex items-center gap-2 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-2 text-sm font-semibold text-red-300 transition hover:bg-red-500/20 cursor-pointer"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-1.5 text-xs sm:text-sm font-semibold text-red-300 transition hover:bg-red-500/20 cursor-pointer"
             >
-              <LogOut size={16} />
+              <LogOut size={15} />
               <span>Sign out</span>
             </button>
           </div>
+        </div>
+
+        {/* Mobile Sticky Navigation Tabs Bar */}
+        <div className="flex lg:hidden overflow-x-auto gap-2 px-4 py-2 bg-black/90 border-t border-white/10 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden scroll-smooth">
+          {navigation.map((item, index) => {
+            const Icon = item.icon;
+            const active = section === item.label;
+            return (
+              <button
+                key={item.label}
+                ref={(el) => (tabRefs.current[index] = el)}
+                type="button"
+                onClick={() => setSection(item.label)}
+                className={`relative flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-semibold whitespace-nowrap shrink-0 transition-all cursor-pointer ${
+                  active
+                    ? "border border-[#FF5C00] bg-[#FF5C00]/15 text-[#FF5C00]"
+                    : "border border-white/10 text-white/70 bg-[#0a0a0a] hover:bg-white/5"
+                }`}
+              >
+                <Icon size={14} />
+                <span>{item.label}</span>
+                {active && (
+                  <div className="absolute bottom-0 left-2 right-2 h-0.5 bg-[#FF5C00] rounded-t" />
+                )}
+              </button>
+            );
+          })}
         </div>
       </header>
 
       {/* Main Container */}
       <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-8 flex gap-8 items-start">
         {/* Desktop Sidebar */}
-        <aside className="hidden lg:block sticky top-24 w-60 shrink-0 rounded-2xl border border-white/10 bg-[#0a0a0a] p-3">
+        <aside className="hidden lg:block sticky top-28 w-60 shrink-0 rounded-2xl border border-white/10 bg-[#0a0a0a] p-3">
           <p className="px-3 pb-3 pt-2 text-[10px] font-bold uppercase tracking-[2px] text-white/40 font-['DM_Mono']">
             Navigation
           </p>
@@ -142,34 +167,6 @@ export default function Dashboard({ token, onLogout }) {
 
         {/* Right Content */}
         <div className="flex-1 min-w-0 pb-16">
-          {/* Mobile Navigation */}
-          <div className="flex lg:hidden overflow-x-auto gap-2.5 mb-6 p-1 pb-2.5 border-b border-white/10 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden scroll-smooth">
-            {navigation.map((item, index) => {
-              const Icon = item.icon;
-              const active = section === item.label;
-              return (
-                <button
-                  key={item.label}
-                  ref={(el) => (tabRefs.current[index] = el)}
-                  type="button"
-                  onClick={() => setSection(item.label)}
-                  className={`relative flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-semibold whitespace-nowrap shrink-0 transition-all cursor-pointer ${
-                    active
-                      ? "border border-[#FF5C00] bg-[#FF5C00]/15 text-[#FF5C00]"
-                      : "border border-white/10 text-white/70 bg-[#0a0a0a] hover:bg-white/5"
-                  }`}
-                >
-                  <Icon size={15} />
-                  <span>{item.label}</span>
-                  {active && (
-                    <div className="absolute bottom-0 left-3 right-3 h-0.5 bg-[#FF5C00] rounded-t" />
-                  )}
-                </button>
-              );
-            })}
-            <div className="w-4 shrink-0 lg:hidden pointer-events-none" aria-hidden="true" />
-          </div>
-
           {section === "Overview" && (
             <section className="space-y-6">
               <div>
