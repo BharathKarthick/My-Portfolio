@@ -8,6 +8,7 @@ const Skill      = lazy(() => import("./pages/Skill"));
 const Experience = lazy(() => import("./pages/Experience"));
 const Projects   = lazy(() => import("./pages/Projects"));
 const Contact    = lazy(() => import("./pages/Contact"));
+const Admin      = lazy(() => import("./pages/Admin")); // <-- Admin-ஐ இம்போர்ட் செய்யவும்
 
 const Loader = () => (
   <div style={{ minHeight: '100vh', background: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -26,7 +27,6 @@ function App() {
 
   return (
     <>
-      {/* ✅ Intro Overlay */}
       {showIntro && <Intro onDone={() => setShowIntro(false)} />}
 
       <HashRouter>
@@ -39,6 +39,7 @@ function App() {
             <Route path="/experience" element={<Experience />} />
             <Route path="/projects"   element={<Projects />} />
             <Route path="/contact"    element={<Contact />} />
+            <Route path="/admin/*"    element={<Admin />} /> {/* <-- Admin Route */}
             <Route path="*"           element={<Navigate to="/" replace />} />
           </Routes>
         </Suspense>

@@ -4,19 +4,13 @@ import { ArrowLeft } from "lucide-react";
 const BackArrow = () => {
   const navigate = useNavigate();
   return (
-    <button onClick={() => navigate(-1)} aria-label="Go back" style={{
-      position: 'fixed', bottom: 28, left: 20, zIndex: 50,
-      display: 'flex', alignItems: 'center', gap: 6,
-      padding: '10px 16px',
-      background: 'rgba(255,92,0,0.1)', border: '1px solid rgba(255,92,0,0.4)',
-      borderRadius: 8, color: '#FF5C00',
-      fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 600, fontSize: 13,
-      cursor: 'pointer', transition: 'all 0.2s',
-    }}
-    onMouseEnter={e => { e.currentTarget.style.background = '#FF5C00'; e.currentTarget.style.color = 'white'; }}
-    onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,92,0,0.1)'; e.currentTarget.style.color = '#FF5C00'; }}>
+    <button
+      onClick={() => navigate(-1)}
+      aria-label="Go back"
+      className="fixed bottom-15 left-5 z-40 flex items-center gap-1.5 px-4 py-2.5 bg-[#FF5C00]/10 border border-[#FF5C00]/40 rounded-lg text-[#FF5C00] font-semibold text-[13px] cursor-pointer transition-all duration-200 hover:bg-[#FF5C00] hover:text-white"
+    >
       <ArrowLeft size={16} />
-      <span className="hide-mobile">Back</span>
+      <span className="hidden sm:inline">Back</span>
     </button>
   );
 };
