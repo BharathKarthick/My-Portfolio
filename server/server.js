@@ -24,9 +24,14 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // 1. மிக முக்கியமானது: CORS மற்றும் JSON Parser-ஐ முதலில் வைக்க வேண்டும்
+// CORS Configuration
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:5173",
+    origin: [
+      process.env.FRONTEND_URL || "http://localhost:5173",
+      "https://pbharathportfolio.netlify.app"
+    ],
+    credentials: true, // Cookies or headers anuppum pothu ithu thevai padum
   })
 );
 

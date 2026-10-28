@@ -1,12 +1,13 @@
 MY-PORTFOLIO PROJECT - SOURCE CODE EXPORT
 Generated from the current project files for client review.
 Excluded: .env files and their values, node_modules, package-lock.json files, generated dist output, the previous Portfolio.txt export, and binary asset contents.
-Binary assets are shown in the structure only; keep the original assets with the project to run it correctly.
+Binary assets are shown in the structure only; keep the original assets with the project if it is to run correctly.
 
 PROJECT STRUCTURE
 
 My-Portfolio/
 +-- public/
+|   +-- favicon.png [binary asset]
 |   +-- robots.txt [binary asset]
 |   +-- sitemap.xml [binary asset]
 |   \-- vite.svg
@@ -35,24 +36,13 @@ My-Portfolio/
 |   \-- server.js
 +-- src/
 |   +-- assets/
-|   |   +-- react.svg
-|   |   \-- Resume(Bharath.P).pdf [binary asset]
+|   |   +-- logo.png [binary asset]
+|   |   \-- logo1.png [binary asset]
 |   +-- components/
 |   |   +-- BackArrow.jsx
 |   |   +-- ConfirmationModal.jsx
 |   |   +-- LogoSVG.jsx
 |   |   \-- Navbar.jsx
-|   +-- image/
-|   |   +-- Frontend mentor.png [binary asset]
-|   |   +-- image1.jpg [binary asset]
-|   |   +-- logo.png [binary asset]
-|   |   +-- my image.jpg [binary asset]
-|   |   +-- port1.jpeg [binary asset]
-|   |   +-- productcard.jpg [binary asset]
-|   |   +-- profilecard.jpg [binary asset]
-|   |   +-- proj1.png [binary asset]
-|   |   +-- proj4.png [binary asset]
-|   |   \-- project 1.png [binary asset]
 |   +-- pages/
 |   |   +-- admin/
 |   |   |   +-- AboutManagement.jsx
@@ -177,6 +167,7 @@ FILE: index.html
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap"
       rel="stylesheet"
     />
+    <link rel="icon" type="image/png" href="/favicon.png" />
   </head>
   <body>
     <div id="root"></div>
@@ -209,7 +200,6 @@ FILE: package.json
     "prop-types": "^15.8.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-helmet-async": "^3.0.0",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.7.0",
     "tailwindcss": "^4.1.11"
@@ -1450,11 +1440,6 @@ function App() {
 export default App;
 
 ================================================================================
-FILE: src/assets/react.svg
-================================================================================
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--logos" width="35.93" height="32" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 228"><path fill="#00D8FF" d="M210.483 73.824a171.49 171.49 0 0 0-8.24-2.597c.465-1.9.893-3.777 1.273-5.621c6.238-30.281 2.16-54.676-11.769-62.708c-13.355-7.7-35.196.329-57.254 19.526a171.23 171.23 0 0 0-6.375 5.848a155.866 155.866 0 0 0-4.241-3.917C100.759 3.829 77.587-4.822 63.673 3.233C50.33 10.957 46.379 33.89 51.995 62.588a170.974 170.974 0 0 0 1.892 8.48c-3.28.932-6.445 1.924-9.474 2.98C17.309 83.498 0 98.307 0 113.668c0 15.865 18.582 31.778 46.812 41.427a145.52 145.52 0 0 0 6.921 2.165a167.467 167.467 0 0 0-2.01 9.138c-5.354 28.2-1.173 50.591 12.134 58.266c13.744 7.926 36.812-.22 59.273-19.855a145.567 145.567 0 0 0 5.342-4.923a168.064 168.064 0 0 0 6.92 6.314c21.758 18.722 43.246 26.282 56.54 18.586c13.731-7.949 18.194-32.003 12.4-61.268a145.016 145.016 0 0 0-1.535-6.842c1.62-.48 3.21-.974 4.76-1.488c29.348-9.723 48.443-25.443 48.443-41.52c0-15.417-17.868-30.326-45.517-39.844Zm-6.365 70.984c-1.4.463-2.836.91-4.3 1.345c-3.24-10.257-7.612-21.163-12.963-32.432c5.106-11 9.31-21.767 12.459-31.957c2.619.758 5.16 1.557 7.61 2.4c23.69 8.156 38.14 20.213 38.14 29.504c0 9.896-15.606 22.743-40.946 31.14Zm-10.514 20.834c2.562 12.94 2.927 24.64 1.23 33.787c-1.524 8.219-4.59 13.698-8.382 15.893c-8.067 4.67-25.32-1.4-43.927-17.412a156.726 156.726 0 0 1-6.437-5.87c7.214-7.889 14.423-17.06 21.459-27.246c12.376-1.098 24.068-2.894 34.671-5.345a134.17 134.17 0 0 1 1.386 6.193ZM87.276 214.515c-7.882 2.783-14.16 2.863-17.955.675c-8.075-4.657-11.432-22.636-6.853-46.752a156.923 156.923 0 0 1 1.869-8.499c10.486 2.32 22.093 3.988 34.498 4.994c7.084 9.967 14.501 19.128 21.976 27.15a134.668 134.668 0 0 1-4.877 4.492c-9.933 8.682-19.886 14.842-28.658 17.94ZM50.35 144.747c-12.483-4.267-22.792-9.812-29.858-15.863c-6.35-5.437-9.555-10.836-9.555-15.216c0-9.322 13.897-21.212 37.076-29.293c2.813-.98 5.757-1.905 8.812-2.773c3.204 10.42 7.406 21.315 12.477 32.332c-5.137 11.18-9.399 22.249-12.634 32.792a134.718 134.718 0 0 1-6.318-1.979Zm12.378-84.26c-4.811-24.587-1.616-43.134 6.425-47.789c8.564-4.958 27.502 2.111 47.463 19.835a144.318 144.318 0 0 1 3.841 3.545c-7.438 7.987-14.787 17.08-21.808 26.988c-12.04 1.116-23.565 2.908-34.161 5.309a160.342 160.342 0 0 1-1.76-7.887Zm110.427 27.268a347.8 347.8 0 0 0-7.785-12.803c8.168 1.033 15.994 2.404 23.343 4.08c-2.206 7.072-4.956 14.465-8.193 22.045a381.151 381.151 0 0 0-7.365-13.322Zm-45.032-43.861c5.044 5.465 10.096 11.566 15.065 18.186a322.04 322.04 0 0 0-30.257-.006c4.974-6.559 10.069-12.652 15.192-18.18ZM82.802 87.83a323.167 323.167 0 0 0-7.227 13.238c-3.184-7.553-5.909-14.98-8.134-22.152c7.304-1.634 15.093-2.97 23.209-3.984a321.524 321.524 0 0 0-7.848 12.897Zm8.081 65.352c-8.385-.936-16.291-2.203-23.593-3.793c2.26-7.3 5.045-14.885 8.298-22.6a321.187 321.187 0 0 0 7.257 13.246c2.594 4.48 5.28 8.868 8.038 13.147Zm37.542 31.03c-5.184-5.592-10.354-11.779-15.403-18.433c4.902.192 9.899.29 14.978.29c5.218 0 10.376-.117 15.453-.343c-4.985 6.774-10.018 12.97-15.028 18.486Zm52.198-57.817c3.422 7.8 6.306 15.345 8.596 22.52c-7.422 1.694-15.436 3.058-23.88 4.071a382.417 382.417 0 0 0 7.859-13.026a347.403 347.403 0 0 0 7.425-13.565Zm-16.898 8.101a358.557 358.557 0 0 1-12.281 19.815a329.4 329.4 0 0 1-23.444.823c-7.967 0-15.716-.248-23.178-.732a310.202 310.202 0 0 1-12.513-19.846h.001a307.41 307.41 0 0 1-10.923-20.627a310.278 310.278 0 0 1 10.89-20.637l-.001.001a307.318 307.318 0 0 1 12.413-19.761c7.613-.576 15.42-.876 23.31-.876H128c7.926 0 15.743.303 23.354.883a329.357 329.357 0 0 1 12.335 19.695a358.489 358.489 0 0 1 11.036 20.54a329.472 329.472 0 0 1-11 20.722Zm22.56-122.124c8.572 4.944 11.906 24.881 6.52 51.026c-.344 1.668-.73 3.367-1.15 5.09c-10.622-2.452-22.155-4.275-34.23-5.408c-7.034-10.017-14.323-19.124-21.64-27.008a160.789 160.789 0 0 1 5.888-5.4c18.9-16.447 36.564-22.941 44.612-18.3ZM128 90.808c12.625 0 22.86 10.235 22.86 22.86s-10.235 22.86-22.86 22.86s-22.86-10.235-22.86-22.86s10.235-22.86 22.86-22.86Z"></path></svg>
-
-================================================================================
 FILE: src/components/BackArrow.jsx
 ================================================================================
 import { useNavigate } from "react-router-dom";
@@ -1596,17 +1581,30 @@ ConfirmationModal.propTypes = {
 ================================================================================
 FILE: src/components/LogoSVG.jsx
 ================================================================================
-const LogoSVG = ({ size = 40 }) => (
-  <svg width={size} height={size} viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M24 2L44 13V35L24 46L4 35V13L24 2Z" fill="#FF5C00" opacity="0.12" />
-    <path d="M24 2L44 13V35L24 46L4 35V13L24 2Z" stroke="#FF5C00" strokeWidth="1.5" fill="none" />
-    <path d="M24 8L38 16V32L24 40L10 32V16L24 8Z" stroke="#FF5C00" strokeWidth="0.6" fill="none" opacity="0.4" />
-    <text x="11" y="30" fontFamily="'Plus Jakarta Sans', sans-serif" fontWeight="800" fontSize="16" fill="#FF5C00">P</text>
-    <text x="26" y="30" fontFamily="'Plus Jakarta Sans', sans-serif" fontWeight="800" fontSize="16" fill="white">B</text>
-  </svg>
-);
+import PropTypes from "prop-types";
+import logoImg from "../assets/logo1.png";
 
-export default LogoSVG;
+export default function LogoSVG({ size = 44, className = "" }) {
+  return (
+    <div
+      className={`relative inline-flex items-center justify-center shrink-0 ${className}`}
+      style={{ width: size, height: size }}
+    >
+      <img
+        src={logoImg}
+        alt="PB Logo"
+        width={size}
+        height={size}
+        className="w-full h-full object-contain filter transition-transform duration-300 hover:scale-105"
+      />
+    </div>
+  );
+}
+
+LogoSVG.propTypes = {
+  size: PropTypes.number,
+  className: PropTypes.string,
+};
 
 ================================================================================
 FILE: src/components/Navbar.jsx
@@ -1643,12 +1641,12 @@ function Navbar() {
         scrolled ? 'bg-black/95 border-b border-[#FF5C00]/20 backdrop-blur-xl' : 'bg-black/60 border-b border-transparent backdrop-blur-md'
       }`}>
         {/* Responsive Container: 90% mobile, 80% md/desktop */}
-        <div className="w-[90%] md:w-[80%] mx-auto h-16 flex items-center justify-between">
-          <Link to="/home" className="flex items-center gap-2 no-underline">
-            <LogoSVG size={36} />
-            <span className="font-['Plus_Jakarta_Sans'] font-bold text-[15px] text-white">
-              P. Bharath
-            </span>
+        <div className="w-[90%] md:w-[80%] mx-auto h-20 flex items-center justify-between">
+          <Link to="/home" className="flex items-center no-underline">
+            <LogoSVG size={120} />
+            {/* <span className="font-['Plus_Jakarta_Sans'] font-bold text-[25px] text-white">
+              harath
+            </span> */}
           </Link>
 
           {/* Desktop nav */}
@@ -1657,7 +1655,7 @@ function Navbar() {
               <NavLink
                 key={item.name}
                 to={item.path}
-                className={({ isActive }) => `font-['Plus_Jakarta_Sans'] font-semibold text-sm transition-colors duration-200 no-underline ${
+                className={({ isActive }) => `font-['Plus_Jakarta_Sans'] font-semibold text-base transition-colors duration-200 no-underline ${
                   isActive ? 'text-[#FF5C00]' : 'text-[#cccccc] hover:text-[#FF5C00]'
                 }`}
               >
@@ -1774,16 +1772,13 @@ FILE: src/main.jsx
 ================================================================================
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { HelmetProvider } from "react-helmet-async";
 import "./index.css";
 import "./App.css";
 import App from "./App.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <HelmetProvider>
-      <App />
-    </HelmetProvider>
+    <App />
   </StrictMode>
 );
 
@@ -1794,6 +1789,7 @@ import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import BackArrow from "../components/BackArrow";
 import { Download } from "lucide-react";
+import SEO from "../seo/SEO";
 import seoData from "../seo/seoData";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
@@ -2512,9 +2508,9 @@ import {
   FolderGit2,
   Briefcase,
   Code2,
-  ShieldCheck,
   LogOut,
 } from "lucide-react";
+import logo from "../../assets/logo.png";
 
 const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
 
@@ -2580,7 +2576,7 @@ export default function Dashboard({ token, onLogout }) {
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#FF5C00]/40 bg-[#FF5C00]/10 text-[#FF5C00]">
-              <ShieldCheck size={22} />
+              <img src={logo} alt="Logo" className="h-7 w-7" />
             </div>
             <div>
               <h1 className="text-base font-bold text-white">Portfolio Admin</h1>
@@ -3599,7 +3595,8 @@ FILE: src/pages/admin/Login.jsx
 ================================================================================
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { Lock, User, ArrowRight, ShieldCheck } from "lucide-react";
+import { Lock, User, ArrowRight} from "lucide-react";
+import logo from "../../assets/logo.png";
 
 export default function Login({ onLogin, loading, error }) {
   const [username, setUsername] = useState("");
@@ -3618,7 +3615,7 @@ export default function Login({ onLogin, loading, error }) {
       <div className="relative z-10 w-full max-w-md">
         <section className="rounded-2xl border border-[#FF5C00]/30 bg-[#0a0a0a]/95 p-6 sm:p-8 shadow-2xl backdrop-blur-xl">
           <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-[#FF5C00]/40 bg-[#FF5C00]/10 text-[#FF5C00]">
-            <ShieldCheck size={32} />
+            <img src={logo} alt="Logo" className="h-11 w-11" />
           </div>
 
           <header className="mb-6 text-center">
@@ -4443,331 +4440,121 @@ import { Plus, Edit, Trash2, Code2, ArrowUp, ArrowDown } from "lucide-react";
 
 const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
 
-const LEGACY_ICONS = {
-  html: "simple-icons:html5",
-  html5: "simple-icons:html5",
-  css: "simple-icons:css3",
-  css3: "simple-icons:css3",
-  tailwind: "simple-icons:tailwindcss",
-  tailwindcss: "simple-icons:tailwindcss",
-  javascript: "simple-icons:javascript",
-  js: "simple-icons:javascript",
-  react: "simple-icons:react",
-  reactjs: "simple-icons:react",
-  figma: "simple-icons:figma",
-  wordpress: "simple-icons:wordpress",
-  github: "simple-icons:github",
-  mongodb: "simple-icons:mongodb",
-  express: "simple-icons:express",
-  expressjs: "simple-icons:express",
-  nodejs: "simple-icons:nodedotjs",
-  node: "simple-icons:nodedotjs",
-  mysql: "simple-icons:mysql",
-  postgresql: "simple-icons:postgresql",
-  postgres: "simple-icons:postgresql",
-  python: "simple-icons:python",
-  java: "simple-icons:java",
-  php: "simple-icons:php",
-  git: "simple-icons:git",
-  docker: "simple-icons:docker",
-  canva: "simple-icons:canva",
-  aws: "simple-icons:amazonaws",
-  firebase: "simple-icons:firebase",
-  postman: "simple-icons:postman",
-  bootstrap: "simple-icons:bootstrap",
-  redux: "simple-icons:redux",
-  graphql: "simple-icons:graphql",
-  nextjs: "simple-icons:nextdotjs",
-  vue: "simple-icons:vuedotjs",
-  typescript: "simple-icons:typescript",
-  ts: "simple-icons:typescript",
-  linux: "simple-icons:linux",
-  nginx: "simple-icons:nginx",
+const LEGACY_ICON_MAP = {
+  FaReact: "simple-icons:react", FaNodeJs: "simple-icons:nodedotjs",
+  FaHtml5: "simple-icons:html5", FaCss3Alt: "simple-icons:css3", FaGithub: "simple-icons:github",
+  SiJavascript: "simple-icons:javascript", SiTypescript: "simple-icons:typescript",
+  SiTailwindcss: "simple-icons:tailwindcss", SiExpress: "simple-icons:express",
+  SiMongodb: "simple-icons:mongodb", SiPostman: "simple-icons:postman",
+  SiNetlify: "simple-icons:netlify", SiRender: "simple-icons:render", SiAmazons3: "simple-icons:amazonaws",
 };
 
-function sanitizeColor(color) {
-  if (!color || typeof color !== "string") return "#FF5C00";
-  let c = color.trim();
-  if (!c.startsWith("#")) c = `#${c}`;
-  c = "#" + c.slice(1).replace(/[^0-9a-fA-F]/g, "");
+const SIMPLE_ICON_ALIASES = { 
+  html: "html5", css: "css3", js: "javascript", tailwind: "tailwindcss", 
+  node: "nodedotjs", nodejs: "nodedotjs", expressjs: "express", postgres: "postgresql", 
+  aws: "amazonaws", amazonaws: "amazonaws", python: "python", mysql: "mysql", 
+  react: "react", javascript: "javascript", typescript: "typescript", mongodb: "mongodb", 
+  docker: "docker", git: "git", github: "github", java: "java", php: "php", 
+  firebase: "firebase", figma: "figma", wordpress: "wordpress", canva: "canva",
+};
 
-  if (c.length === 4) {
-    c = `#${c[1]}${c[1]}${c[2]}${c[2]}${c[3]}${c[3]}`;
-  }
-  if (c.length > 7) {
-    c = c.slice(0, 7);
-  }
-  return /^#[0-9a-fA-F]{6}$/.test(c) ? c : "#FF5C00";
+function normalizeIconIdentifier(icon) {
+  const raw = String(icon || "").trim();
+  if (!raw) return "";
+  if (LEGACY_ICON_MAP[raw]) return LEGACY_ICON_MAP[raw];
+  if (raw.includes(":")) return raw.toLowerCase();
+  const slug = raw.toLowerCase().replace(/\s+/g, "-");
+  return `simple-icons:${SIMPLE_ICON_ALIASES[slug] || slug}`;
 }
 
-function getIconUrl(key, color) {
-  if (!key) return null;
-  const clean = key.trim().toLowerCase();
-
-  let identifier = LEGACY_ICONS[clean] || clean;
-  if (!identifier.includes(":")) {
-    identifier = `simple-icons:${clean}`;
-  }
-
-  const match = identifier.match(/^([a-z0-9-]+):([a-z0-9-]+)$/i);
+function iconUrl(icon) {
+  const id = normalizeIconIdentifier(icon);
+  const match = id.match(/^([a-z0-9-]+):([a-z0-9-]+)$/i);
   if (!match) return null;
-
-  const [, collection, name] = match;
-  const validColor = sanitizeColor(color);
-  return `https://api.iconify.design/${collection}/${name}.svg?color=${encodeURIComponent(validColor)}`;
+  return `https://api.iconify.design/${match[1]}/${match[2]}.svg`;
 }
 
-function SkillIconPreview({ iconKey, color, size = 20 }) {
-  const [failed, setFailed] = useState(false);
-  const validColor = sanitizeColor(color);
-  const iconUrl = getIconUrl(iconKey, validColor);
+function IconPreview({ icon, color, size = 30 }) {
+  const src = iconUrl(icon);
+  const [failedSrc, setFailedSrc] = useState("");
+  const failed = Boolean(src && failedSrc === src);
 
-  useEffect(() => {
-    setFailed(false);
-  }, [iconKey, color]);
-
-  if (!iconUrl || failed) {
-    return <Code2 size={size} color={validColor} />;
+  if (!src || failed) {
+    return (
+      <span
+        className="inline-flex shrink-0 items-center justify-center rounded-lg bg-white/5 font-bold text-slate-400"
+        style={{ width: size, height: size }}
+      >
+        {String(icon || "?").trim().slice(0, 1).toUpperCase() || "?"}
+      </span>
+    );
   }
 
   return (
-    <img
-      src={iconUrl}
-      alt="preview"
-      width={size}
-      height={size}
-      loading="lazy"
-      onError={() => setFailed(true)}
-      className="object-contain"
-      style={{ width: size, height: size }}
-    />
+    <span
+      key={src}
+      className="inline-block shrink-0"
+      role="img"
+      aria-label="Icon preview"
+      style={{
+        width: size,
+        height: size,
+        backgroundColor: color || "#FF5C00",
+        WebkitMask: `url("${src}") center / contain no-repeat`,
+        mask: `url("${src}") center / contain no-repeat`,
+      }}
+    >
+      <img src={src} alt="" width={size} height={size} onError={() => setFailedSrc(src)} style={{ display: "none" }} />
+    </span>
   );
 }
 
-function emptySkillForm(initialOrder = 1) {
-  return {
-    name: "",
-    key: "",
-    color: "#FF5C00",
-    order: initialOrder,
-  };
-}
+IconPreview.propTypes = {
+  icon: PropTypes.string,
+  color: PropTypes.string,
+  size: PropTypes.number,
+};
 
-function SkillForm({ token, skill, initialOrder, onCancel, onSaved }) {
-  const [saving, setSaving] = useState(false);
-  const [error, setError] = useState("");
-  const [form, setForm] = useState(() => {
-    if (!skill) return emptySkillForm(initialOrder);
-    return {
-      name: skill.name || "",
-      key: skill.key || "",
-      color: sanitizeColor(skill.color),
-      order: skill.order ?? 1,
-    };
-  });
-
-  function updateField(event) {
-    const { name, value } = event.target;
-    if (name === "color") {
-      setForm((current) => ({ ...current, color: value }));
-      return;
-    }
-    setForm((current) => ({ ...current, [name]: value }));
-  }
-
-  const hasChanges =
-    !skill ||
-    form.name.trim() !== (skill.name || "").trim() ||
-    form.key.trim().toLowerCase() !== (skill.key || "").trim().toLowerCase() ||
-    sanitizeColor(form.color).toLowerCase() !== sanitizeColor(skill.color).toLowerCase() ||
-    Number(form.order) !== Number(skill.order ?? 1);
-
-  async function handleSubmit(event) {
-    event.preventDefault();
-    setError("");
-
-    if (skill && !hasChanges) {
-      return;
-    }
-
-    setSaving(true);
-
-    try {
-      const payload = {
-        name: form.name.trim(),
-        key: form.key.trim().toLowerCase(),
-        color: sanitizeColor(form.color),
-        order: Number(form.order),
-      };
-
-      const response = await fetch(
-        skill
-          ? `${API_URL}/api/admin/skills/${skill._id}`
-          : `${API_URL}/api/admin/skills`,
-        {
-          method: skill ? "PUT" : "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(payload),
-        }
-      );
-
-      const data = await response.json();
-      if (!response.ok || !data.success) {
-        throw new Error(data.message || "Unable to save skill.");
-      }
-      onSaved(skill ? "updated" : "created", payload.name);
-    } catch (submitError) {
-      setError(submitError.message || "Unable to save skill.");
-    } finally {
-      setSaving(false);
-    }
-  }
-
-  return (
-    <form onSubmit={handleSubmit} className="space-y-6 text-white font-['Plus_Jakarta_Sans']">
-      <div className="flex items-center justify-between">
-        <h3 className="text-xl font-bold">{skill ? "Edit Skill" : "Add New Skill"}</h3>
-        <button
-          type="button"
-          onClick={onCancel}
-          className="rounded-xl border border-white/10 px-4 py-2 text-xs font-semibold text-white/75 hover:bg-white/5 cursor-pointer"
-        >
-          Cancel
-        </button>
-      </div>
-
-      {error && (
-        <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-3.5 text-sm text-red-300">
-          {error}
-        </div>
-      )}
-
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div>
-          <label className="block text-xs font-semibold uppercase tracking-wider text-white/70 mb-1.5">
-            Skill Name *
-          </label>
-          <input
-            name="name"
-            value={form.name}
-            onChange={updateField}
-            required
-            className="w-full rounded-xl border border-white/10 bg-[#111111] px-4 py-3 text-sm text-white outline-none focus:border-[#FF5C00]"
-            placeholder="e.g. MySQL"
-          />
-        </div>
-
-        <div>
-          <label className="block text-xs font-semibold uppercase tracking-wider text-white/70 mb-1.5">
-            Icon Key / Identifier *
-          </label>
-          <div className="flex gap-2 items-center">
-            <input
-              name="key"
-              value={form.key}
-              onChange={updateField}
-              required
-              className="flex-1 rounded-xl border border-white/10 bg-[#111111] px-4 py-3 text-sm text-white outline-none focus:border-[#FF5C00]"
-              placeholder="e.g. simple-icons:mysql or mysql"
-            />
-            <div
-              className="w-11 h-11 rounded-xl border border-white/10 bg-[#111111] flex items-center justify-center shrink-0 p-1"
-              title="Live Icon Preview"
-            >
-              <SkillIconPreview iconKey={form.key} color={form.color} size={22} />
-            </div>
-          </div>
-          <span className="text-[11px] text-white/40 mt-1 block">
-            Enter an Iconify identifier (e.g. simple-icons:mysql, logos:docker) or direct name (e.g. mysql, react).
-          </span>
-        </div>
-
-        <div>
-          <label className="block text-xs font-semibold uppercase tracking-wider text-white/70 mb-1.5">
-            Brand Color (Hex) *
-          </label>
-          <div className="flex gap-3 items-center">
-            <input
-              type="color"
-              name="color"
-              value={sanitizeColor(form.color)}
-              onChange={updateField}
-              className="w-12 h-11 rounded-xl border border-white/10 bg-[#111111] p-1 cursor-pointer"
-            />
-            <input
-              type="text"
-              name="color"
-              value={form.color}
-              onChange={updateField}
-              required
-              className="flex-1 rounded-xl border border-white/10 bg-[#111111] px-4 py-3 text-sm text-white outline-none focus:border-[#FF5C00]"
-              placeholder="e.g. #00758F"
-            />
-          </div>
-        </div>
-
-        <div>
-          <label className="block text-xs font-semibold uppercase tracking-wider text-white/70 mb-1.5">
-            Display Order
-          </label>
-          <input
-            type="number"
-            name="order"
-            value={form.order}
-            onChange={updateField}
-            min="0"
-            className="w-full rounded-xl border border-white/10 bg-[#111111] px-4 py-3 text-sm text-white outline-none focus:border-[#FF5C00]"
-          />
-        </div>
-      </div>
-
-      <div className="flex justify-end gap-3 pt-4 border-t border-white/10">
-        <button
-          type="submit"
-          disabled={saving}
-          className="rounded-xl bg-[#FF5C00] px-6 py-3 text-sm font-bold text-white transition hover:bg-[#cc4900] disabled:opacity-50 cursor-pointer"
-        >
-          {saving ? "Saving..." : skill ? "Update Skill" : "Save Skill"}
-        </button>
-      </div>
-    </form>
-  );
-}
-
-SkillForm.propTypes = {
-  token: PropTypes.string.isRequired,
-  skill: PropTypes.object,
-  initialOrder: PropTypes.number.isRequired,
-  onCancel: PropTypes.func.isRequired,
-  onSaved: PropTypes.func.isRequired,
+const emptyForm = {
+  name: "",
+  icon: "",
+  color: "#FF5C00",
+  order: 1,
+  published: true,
 };
 
 export default function SkillManagement({ token }) {
   const [skills, setSkills] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [form, setForm] = useState(emptyForm);
+  const [editingId, setEditingId] = useState(null);
   const [showForm, setShowForm] = useState(false);
-  const [editingSkill, setEditingSkill] = useState(null);
-  const [modal, setModal] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [deletingId, setDeletingId] = useState("");
+  const [error, setError] = useState("");
   const [pendingDelete, setPendingDelete] = useState(null);
+  const [modal, setModal] = useState(null);
 
   const loadSkills = useCallback(async () => {
     setLoading(true);
+    setError("");
+
     try {
       const response = await fetch(`${API_URL}/api/admin/skills`, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
+
       const data = await response.json();
-      if (data.success) {
-        const sorted = (data.skills || []).sort(
-          (a, b) => (a.order || 0) - (b.order || 0)
-        );
-        setSkills(sorted);
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || "Unable to load skills.");
       }
+
+      setSkills(Array.isArray(data.skills) ? data.skills : []);
     } catch (err) {
-      console.error(err);
+      setError(err.message || "Unable to load skills.");
     } finally {
       setLoading(false);
     }
@@ -4777,67 +4564,153 @@ export default function SkillManagement({ token }) {
     loadSkills();
   }, [loadSkills]);
 
-  async function handleMove(index, direction) {
-    const targetIndex = direction === "up" ? index - 1 : index + 1;
-    if (targetIndex < 0 || targetIndex >= skills.length) return;
+  function startAdd() {
+    const nextOrder =
+      skills.length > 0
+        ? Math.max(...skills.map((skill) => Number(skill.order) || 0)) + 1
+        : 1;
 
-    const updated = [...skills];
-    const temp = updated[index];
-    updated[index] = updated[targetIndex];
-    updated[targetIndex] = temp;
+    setEditingId(null);
+    setForm({
+      ...emptyForm,
+      order: nextOrder,
+    });
+    setError("");
+    setShowForm(true);
+  }
 
-    const reindexed = updated.map((s, idx) => ({ ...s, order: idx + 1 }));
-    setSkills(reindexed);
+  function startEdit(skill) {
+    setEditingId(skill._id);
+    setForm({
+      name: skill.name || "",
+      icon: skill.icon || skill.key || "",
+      color: skill.color || "#FF5C00",
+      order: skill.order ?? 1,
+      published: skill.published ?? true,
+    });
+    setError("");
+    setShowForm(true);
+  }
+
+  function updateField(event) {
+    const { name, value, type, checked } = event.target;
+
+    setForm((current) => ({
+      ...current,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    setSaving(true);
+    setError("");
 
     try {
-      await Promise.all(
-        reindexed.map((s) =>
-          fetch(`${API_URL}/api/admin/skills/${s._id}`, {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-              name: s.name,
-              key: s.key,
-              color: sanitizeColor(s.color),
-              order: s.order,
-            }),
-          })
-        )
+      if (!form.name.trim()) throw new Error("Please enter a skill name.");
+      if (!form.icon.trim()) throw new Error("Please enter an icon name or Iconify identifier.");
+      if (!/^#(?:[0-9a-f]{3}|[0-9a-f]{6})$/i.test(form.color)) throw new Error("Please choose a valid hexadecimal color.");
+      
+      const payload = {
+        name: form.name.trim(),
+        icon: normalizeIconIdentifier(form.icon),
+        key: normalizeIconIdentifier(form.icon), // compatibility with existing schema
+        color: form.color,
+        order: Number(form.order),
+        published: form.published,
+      };
+
+      const response = await fetch(
+        editingId
+          ? `${API_URL}/api/admin/skills/${editingId}`
+          : `${API_URL}/api/admin/skills`,
+        {
+          method: editingId ? "PUT" : "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(payload),
+        },
       );
-      loadSkills();
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || "Unable to save skill.");
+      }
+
+      const wasEditing = Boolean(editingId);
+      const skillName = payload.name;
+
+      setShowForm(false);
+      setEditingId(null);
+      setForm({ ...emptyForm });
+
+      await loadSkills();
+
+      setModal({
+        type: "success",
+        variant: "success",
+        title: wasEditing ? "Skill Updated!" : "Skill Added!",
+        message: wasEditing
+          ? `"${skillName}" was updated successfully.`
+          : `"${skillName}" was added successfully.`,
+        confirmText: "Done",
+        cancelText: "Close",
+      });
     } catch (err) {
-      console.error("Failed to update order:", err);
+      setError(err.message || "Unable to save skill.");
+    } finally {
+      setSaving(false);
     }
   }
 
   async function confirmDelete() {
     if (!pendingDelete) return;
-    const deletedName = pendingDelete.name;
+
+    const skill = pendingDelete;
+    setDeletingId(skill._id);
+    setError("");
+
     try {
-      const res = await fetch(`${API_URL}/api/admin/skills/${pendingDelete._id}`, {
+      const response = await fetch(`${API_URL}/api/admin/skills/${skill._id}`, {
         method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
-      if (res.ok) {
-        setSkills((curr) => curr.filter((s) => s._id !== pendingDelete._id));
-        setPendingDelete(null);
-        setModal({
-          type: "success",
-          variant: "success",
-          title: "Skill Deleted!",
-          message: `"${deletedName}" has been deleted successfully.`,
-          confirmText: "Done",
-          cancelText: "Close",
-        });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || "Unable to delete skill.");
       }
+
+      setSkills((current) => current.filter((item) => item._id !== skill._id));
+      setPendingDelete(null);
+
+      setModal({
+        type: "success",
+        variant: "success",
+        title: "Skill Deleted!",
+        message: `"${skill.name}" was deleted successfully.`,
+        confirmText: "Done",
+        cancelText: "Close",
+      });
     } catch (err) {
-      console.error(err);
+      setError(err.message || "Unable to delete skill.");
       setModal(null);
       setPendingDelete(null);
+    } finally {
+      setDeletingId("");
     }
+  }
+
+  function closeModal() {
+    if (deletingId) return;
+    setModal(null);
+    setPendingDelete(null);
   }
 
   return (
@@ -4852,7 +4725,6 @@ export default function SkillManagement({ token }) {
           </h2>
         </div>
 
-        {/* Count Badge + Add Button Container */}
         <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
           <span className="inline-flex items-center px-3 py-2 rounded-xl bg-[#FF5C00]/10 border border-[#FF5C00]/30 font-['DM_Mono'] text-xs font-bold text-[#FF5C00]">
             {skills.length} Skills
@@ -4860,10 +4732,8 @@ export default function SkillManagement({ token }) {
 
           {!showForm && (
             <button
-              onClick={() => {
-                setEditingSkill(null);
-                setShowForm(true);
-              }}
+              type="button"
+              onClick={startAdd}
               className="inline-flex items-center gap-2 rounded-xl bg-[#FF5C00] px-4 py-2.5 text-sm font-bold text-white transition hover:bg-[#cc4900] cursor-pointer"
             >
               <Plus size={18} /> Add Skill
@@ -4872,35 +4742,154 @@ export default function SkillManagement({ token }) {
         </div>
       </div>
 
-      {showForm ? (
-        <div className="rounded-2xl border border-white/10 bg-[#0a0a0a] p-6">
-          <SkillForm
-            token={token}
-            skill={editingSkill}
-            initialOrder={skills.length + 1}
-            onCancel={() => {
-              setShowForm(false);
-              setEditingSkill(null);
-            }}
-            onSaved={async (action, skillName) => {
-              setShowForm(false);
-              setEditingSkill(null);
-              await loadSkills();
-              setModal({
-                type: "success",
-                variant: "success",
-                title: action === "created" ? "Skill Added!" : "Skill Updated!",
-                message:
-                  action === "created"
-                    ? `"${skillName}" has been added to your skills successfully.`
-                    : `"${skillName}" has been updated successfully.`,
-                confirmText: "Done",
-                cancelText: "Close",
-              });
-            }}
-          />
+      {error && (
+        <div
+          role="alert"
+          className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300"
+        >
+          {error}
+          <button
+            type="button"
+            onClick={loadSkills}
+            className="ml-3 font-semibold text-white underline"
+          >
+            Retry
+          </button>
         </div>
-      ) : loading ? (
+      )}
+
+      {showForm && (
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-5 rounded-2xl border border-white/10 bg-[#0a0a0a] p-5 sm:p-7"
+        >
+          <div className="flex items-center justify-between gap-3">
+            <h3 className="text-xl font-bold text-white">
+              {editingId ? "Edit Skill" : "Add New Skill"}
+            </h3>
+
+            <button
+              type="button"
+              onClick={() => {
+                setShowForm(false);
+                setEditingId(null);
+                setError("");
+              }}
+              className="rounded-xl border border-white/10 px-4 py-2 text-xs font-semibold text-white/75 hover:bg-white/5 cursor-pointer"
+            >
+              Cancel
+            </button>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-white/70 mb-1.5">
+                Skill Name *
+              </label>
+              <input
+                name="name"
+                value={form.name}
+                onChange={updateField}
+                required
+                maxLength={80}
+                placeholder="e.g. MySQL"
+                className="w-full rounded-xl border border-white/10 bg-[#111111] px-4 py-3 text-sm text-white outline-none focus:border-[#FF5C00]"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-white/70 mb-1.5">
+                Icon Name or Identifier *
+              </label>
+              <div className="flex items-center gap-3">
+                <input
+                  name="icon"
+                  value={form.icon}
+                  onChange={updateField}
+                  required
+                  maxLength={100}
+                  placeholder="e.g. mysql or logos:docker"
+                  className="flex-1 rounded-xl border border-white/10 bg-[#111111] px-4 py-3 text-sm text-white outline-none focus:border-[#FF5C00]"
+                />
+                <div
+                  className="w-11 h-11 rounded-xl border border-white/10 bg-[#111111] flex items-center justify-center shrink-0 p-1"
+                  title="Live icon preview"
+                >
+                  <IconPreview icon={form.icon} color={form.color} size={24} />
+                </div>
+              </div>
+              <span className="text-[11px] text-white/40 mt-1 block">
+                Type <code className="text-white/60">mysql</code>, <code className="text-white/60">python</code> or <code className="text-white/60">logos:docker</code>.
+              </span>
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-white/70 mb-1.5">
+                Brand Color (Hex) *
+              </label>
+              <div className="flex gap-3 items-center">
+                <input
+                  type="color"
+                  name="color"
+                  value={form.color}
+                  onChange={updateField}
+                  className="w-12 h-11 rounded-xl border border-white/10 bg-[#111111] p-1 cursor-pointer"
+                />
+                <input
+                  type="text"
+                  name="color"
+                  value={form.color}
+                  onChange={updateField}
+                  required
+                  className="flex-1 rounded-xl border border-white/10 bg-[#111111] px-4 py-3 text-sm text-white outline-none focus:border-[#FF5C00]"
+                  placeholder="e.g. #00758F"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-white/70 mb-1.5">
+                Display Order
+              </label>
+              <input
+                type="number"
+                name="order"
+                value={form.order}
+                onChange={updateField}
+                min="0"
+                step="1"
+                required
+                className="w-full rounded-xl border border-white/10 bg-[#111111] px-4 py-3 text-sm text-white outline-none focus:border-[#FF5C00]"
+              />
+            </div>
+          </div>
+
+          <div className="flex gap-6 pt-2">
+            <label className="flex items-center gap-2 text-sm cursor-pointer">
+              <input
+                type="checkbox"
+                name="published"
+                checked={form.published}
+                onChange={updateField}
+                className="accent-[#FF5C00] w-4 h-4"
+              />
+              Published on portfolio
+            </label>
+          </div>
+
+          <div className="flex justify-end gap-3 pt-4 border-t border-white/10">
+            <button
+              type="submit"
+              disabled={saving}
+              className="rounded-xl bg-[#FF5C00] px-6 py-3 text-sm font-bold text-white transition hover:bg-[#cc4900] disabled:opacity-50 cursor-pointer"
+            >
+              {saving ? "Saving..." : editingId ? "Update Skill" : "Save Skill"}
+            </button>
+          </div>
+        </form>
+      )}
+
+      {loading ? (
         <p className="text-white/70 text-sm">Loading skills...</p>
       ) : skills.length === 0 ? (
         <div className="rounded-2xl border border-white/10 bg-[#0a0a0a] p-10 text-center">
@@ -4909,64 +4898,50 @@ export default function SkillManagement({ token }) {
         </div>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-          {skills.map((skill, index) => (
-            <div
+          {skills.map((skill) => (
+            <article
               key={skill._id}
               className="rounded-2xl border border-white/10 bg-[#0a0a0a] p-5 flex flex-col justify-between"
             >
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-3">
-                  <div
-                    className="w-10 h-10 rounded-xl border border-white/10 bg-[#111111] flex items-center justify-center shrink-0 p-1.5"
-                    style={{ borderColor: `${sanitizeColor(skill.color)}40` }}
-                  >
-                    <SkillIconPreview
-                      iconKey={skill.key}
-                      color={sanitizeColor(skill.color)}
-                      size={20}
-                    />
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-10 h-10 rounded-xl border border-white/10 bg-[#111111] flex items-center justify-center shrink-0 p-1.5">
+                    <IconPreview icon={skill.icon || skill.key} color={skill.color || "#FF5C00"} size={22} />
                   </div>
-                  <div>
-                    <h3 className="font-bold text-base text-white">
-                      {skill.name}
-                    </h3>
-                    <p className="font-['DM_Mono'] text-[11px] text-white/40">
-                      Key: {skill.key} | Order: {skill.order ?? index + 1}
+                  <div className="min-w-0">
+                    <h3 className="font-bold text-base text-white truncate">{skill.name}</h3>
+                    <p className="font-['DM_Mono'] text-[11px] text-white/40 truncate">
+                      Key: {skill.icon || skill.key}
                     </p>
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-1">
-                  <button
-                    onClick={() => handleMove(index, "up")}
-                    disabled={index === 0}
-                    className="p-1 rounded bg-white/5 hover:bg-white/10 text-white/70 disabled:opacity-30 cursor-pointer"
-                    title="Move Up"
-                  >
-                    <ArrowUp size={14} />
-                  </button>
-                  <button
-                    onClick={() => handleMove(index, "down")}
-                    disabled={index === skills.length - 1}
-                    className="p-1 rounded bg-white/5 hover:bg-white/10 text-white/70 disabled:opacity-30 cursor-pointer"
-                    title="Move Down"
-                  >
-                    <ArrowDown size={14} />
-                  </button>
-                </div>
+                <span
+                  className={`shrink-0 rounded-full border px-2 py-0.5 text-[10px] font-semibold ${
+                    skill.published !== false
+                      ? "border-emerald-400/30 bg-emerald-400/10 text-emerald-300"
+                      : "border-amber-400/30 bg-amber-400/10 text-amber-300"
+                  }`}
+                >
+                  {skill.published !== false ? "Published" : "Draft"}
+                </span>
+              </div>
+
+              <div className="mt-4 flex items-center justify-between text-xs text-white/40 font-['DM_Mono']">
+                <span>Order: {skill.order ?? 1}</span>
+                <span>{skill.color || "#FF5C00"}</span>
               </div>
 
               <div className="flex gap-2 mt-4 pt-3 border-t border-white/10">
                 <button
-                  onClick={() => {
-                    setEditingSkill(skill);
-                    setShowForm(true);
-                  }}
+                  type="button"
+                  onClick={() => startEdit(skill)}
                   className="flex-1 py-2 bg-white/5 hover:bg-white/10 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer"
                 >
                   <Edit size={14} /> Edit
                 </button>
                 <button
+                  type="button"
                   onClick={() => {
                     setPendingDelete(skill);
                     setModal({
@@ -4978,12 +4953,13 @@ export default function SkillManagement({ token }) {
                       cancelText: "Cancel",
                     });
                   }}
-                  className="flex-1 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-300 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer"
+                  disabled={deletingId === skill._id}
+                  className="flex-1 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-300 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
                 >
-                  <Trash2 size={14} /> Delete
+                  <Trash2 size={14} /> {deletingId === skill._id ? "Deleting..." : "Delete"}
                 </button>
               </div>
-            </div>
+            </article>
           ))}
         </div>
       )}
@@ -4995,17 +4971,15 @@ export default function SkillManagement({ token }) {
         variant={modal?.variant || "danger"}
         confirmText={modal?.confirmText || "Confirm"}
         cancelText={modal?.cancelText || "Close"}
+        isLoading={Boolean(deletingId)}
         onConfirm={() => {
-          if (modal?.type === "confirmDelete") {
-            confirmDelete();
-          } else {
+          if (modal?.type === "success") {
             setModal(null);
+            return;
           }
+          confirmDelete();
         }}
-        onCancel={() => {
-          setModal(null);
-          setPendingDelete(null);
-        }}
+        onCancel={closeModal}
       />
     </section>
   );
@@ -5023,6 +4997,7 @@ import emailjs from "emailjs-com";
 import Navbar from "../components/Navbar";
 import BackArrow from "../components/BackArrow";
 import { Send, Linkedin, Github, Mail, CheckCircle, MapPin, User, Phone } from "lucide-react";
+import SEO from "../seo/SEO";
 import seoData from "../seo/seoData";
 
 const Contact = () => {
@@ -5233,6 +5208,7 @@ import { useState, useEffect, useRef } from "react";
 import Navbar from "../components/Navbar";
 import BackArrow from "../components/BackArrow";
 import { Calendar, ChevronRight } from "lucide-react";
+import SEO from "../seo/SEO";
 import seoData from "../seo/seoData";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
@@ -5420,9 +5396,10 @@ FILE: src/pages/Home.jsx
 import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "../components/Navbar";
-import LogoSVG from "../components/LogoSVG";
+import logoImg from "../assets/logo.png";
 import { Link } from "react-router-dom";
 import { ArrowRight, MapPin, Code2, Palette } from "lucide-react";
+import SEO from "../seo/SEO";
 import seoData from "../seo/seoData";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
@@ -5632,7 +5609,7 @@ function Home() {
               <div className="absolute w-37.5 h-37.5 sm:w-42.5 sm:h-42.5 border border-[#FF5C00]/15 rounded-full top-1/2 left-1/2 anim-spin-center-2" />
 
               <div className="bg-[#FF5C00]/10 border border-[#FF5C00]/30 rounded-2xl px-6 sm:px-7 py-4 sm:py-5 text-center anim-float backdrop-blur-md flex flex-col items-center gap-2">
-                <LogoSVG size={50} />
+                <img src={logoImg} alt="Logo" className="w-10 h-10" />
                 <div className="font-['DM_Mono'] text-[9px] text-white/40 tracking-[3px] uppercase">
                   {homeData.terminalName || "P. Bharath"}
                 </div>
@@ -5677,24 +5654,26 @@ export default Home;
 FILE: src/pages/Intro.jsx
 ================================================================================
 import { useEffect, useState } from "react";
-import LogoSVG from "../components/LogoSVG";
+import PropTypes from "prop-types";
+import logoImg from "../assets/logo.png";
 
 const Intro = ({ onDone }) => {
   const [phase, setPhase] = useState(0);
 
   useEffect(() => {
-    const t1 = setTimeout(() => setPhase(1), 400);
-    const t2 = setTimeout(() => setPhase(2), 1800);
-    const t3 = setTimeout(() => onDone(), 4200); 
+    const t1 = setTimeout(() => setPhase(1), 300);  // 3D Shield Scale-in & Neon Glow
+    const t2 = setTimeout(() => setPhase(2), 1600); // Brand Name Reveal
+    const t3 = setTimeout(() => setPhase(3), 3600); // Smooth Fade-out
+    const t4 = setTimeout(() => onDone(), 4200);
 
-    return () => [t1, t2, t3].forEach(clearTimeout);
+    return () => [t1, t2, t3, t4].forEach(clearTimeout);
   }, [onDone]);
 
   return (
     <div
       style={{
         height: "100vh",
-        background: "#000",
+        background: "#000000",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -5703,60 +5682,118 @@ const Intro = ({ onDone }) => {
         position: "fixed",
         inset: 0,
         zIndex: 9999,
+        transition: "opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
+        opacity: phase === 3 ? 0 : 1,
+        pointerEvents: phase === 3 ? "none" : "auto",
       }}
     >
+      {/* Background Radial Glow Pulse */}
       <div
         style={{
           position: "absolute",
-          width: 500,
-          height: 500,
+          width: 550,
+          height: 550,
           borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(255,92,0,0.12) 0%, transparent 70%)",
-          transition: "opacity 1s ease",
+            "radial-gradient(circle, rgba(255,92,0,0.22) 0%, rgba(255,92,0,0.04) 50%, transparent 70%)",
+          transition: "all 1.4s cubic-bezier(0.16, 1, 0.3, 1)",
+          transform: phase >= 1 ? "scale(1.15)" : "scale(0.5)",
           opacity: phase >= 1 ? 1 : 0,
+          pointerEvents: "none",
         }}
       />
 
+      {/* 3D Shield Badge Container with Intense Neon Glow */}
       <div
         style={{
-          transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
+          position: "relative",
+          transition: "all 1s cubic-bezier(0.16, 1, 0.3, 1)",
           opacity: phase >= 1 ? 1 : 0,
-          transform: phase >= 1 ? "scale(1)" : "scale(0.7)",
-          marginBottom: 24,
+          transform: phase >= 1 ? "scale(1) translateY(0)" : "scale(0.7) translateY(20px)",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        <LogoSVG size={96} />
+        {/* Luxury Shield Frame */}
+        <div
+          style={{
+            position: "relative",
+            width: "clamp(150px, 28vw, 190px)",
+            height: "clamp(180px, 34vw, 230px)",
+            background: "linear-gradient(145deg, #0e1217, #050608)",
+            border: "1.5px solid rgba(255, 92, 0, 0.55)",
+            boxShadow:
+              "0 0 45px rgba(255,92,0,0.38), inset 0 0 25px rgba(255,92,0,0.15), 0 20px 50px rgba(0,0,0,0.9)",
+            borderRadius: "32px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backdropFilter: "blur(14px)",
+            overflow: "hidden",
+          }}
+        >
+          {/* Exact 3D Metallic Monogram Logo */}
+          <div
+            style={{
+              width: "72%",
+              height: "72%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <img
+              src={logoImg}
+              alt="P. Bharath Monogram"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "contain",
+              }}
+            />
+          </div>
+        </div>
       </div>
 
+      {/* Typography */}
       <div
         style={{
           fontFamily: "'DM Mono', monospace",
-          fontSize: "clamp(11px, 2.5vw, 14px)",
-          color: "rgba(255,255,255,0.5)",
+          fontSize: "clamp(11px, 2.5vw, 13px)",
+          color: "rgba(255,255,255,0.75)",
           letterSpacing: "6px",
           textTransform: "uppercase",
-          transition: "all 0.7s 0.3s ease",
+          marginTop: "30px",
+          transition: "all 0.8s 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
           opacity: phase >= 2 ? 1 : 0,
-          transform: phase >= 2 ? "translateY(0)" : "translateY(16px)",
+          transform: phase >= 2 ? "translateY(0)" : "translateY(15px)",
+          textAlign: "center",
         }}
       >
-        P. Bharath — Portfolio
+        Welcome To My <span style={{ color: "#FF5C00", fontWeight: 700 }}>Portfolio</span>
       </div>
 
+      {/* Bottom Progress Accent Bar */}
       <div
         style={{
           position: "absolute",
           bottom: 0,
           left: 0,
           height: 2,
-          background: "#FF5C00",
-          transition: "width 3.4s cubic-bezier(0.4, 0, 0.2, 1)",
+          background: "linear-gradient(90deg, #FF5C00, #FFA726, #FFFFFF)",
+          boxShadow: "0 0 12px rgba(255,92,0,0.8)",
+          transition: "width 3.2s cubic-bezier(0.4, 0, 0.2, 1)",
           width: phase >= 1 ? "100%" : "0%",
         }}
       />
     </div>
   );
+};
+
+Intro.propTypes = {
+  onDone: PropTypes.func.isRequired,
 };
 
 export default Intro;
@@ -5769,6 +5806,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "../components/Navbar";
 import BackArrow from "../components/BackArrow";
 import { ExternalLink, Github, ChevronLeft, ChevronRight } from "lucide-react";
+import SEO from "../seo/SEO";
 import seoData from "../seo/seoData";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
@@ -6032,91 +6070,77 @@ import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import BackArrow from "../components/BackArrow";
 import { Code2 } from "lucide-react";
+import SEO from "../seo/SEO";
 import seoData from "../seo/seoData";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
 
-// ஏற்கனவே உள்ள எளிய பெயர்களுக்கான Iconify Compatibility Mapping
 const LEGACY_ICONS = {
-  html: "simple-icons:html5",
-  html5: "simple-icons:html5",
-  css: "simple-icons:css3",
-  css3: "simple-icons:css3",
-  tailwind: "simple-icons:tailwindcss",
-  tailwindcss: "simple-icons:tailwindcss",
-  javascript: "simple-icons:javascript",
-  js: "simple-icons:javascript",
-  react: "simple-icons:react",
-  reactjs: "simple-icons:react",
-  figma: "simple-icons:figma",
-  wordpress: "simple-icons:wordpress",
-  github: "simple-icons:github",
-  mongodb: "simple-icons:mongodb",
-  express: "simple-icons:express",
-  expressjs: "simple-icons:express",
-  nodejs: "simple-icons:nodedotjs",
-  node: "simple-icons:nodedotjs",
-  mysql: "simple-icons:mysql",
-  postgresql: "simple-icons:postgresql",
-  postgres: "simple-icons:postgresql",
-  python: "simple-icons:python",
-  java: "simple-icons:java",
-  php: "simple-icons:php",
-  git: "simple-icons:git",
-  docker: "simple-icons:docker",
-  canva: "simple-icons:canva",
-  aws: "simple-icons:amazonaws",
-  firebase: "simple-icons:firebase",
+  FaReact: "simple-icons:react", FaNodeJs: "simple-icons:nodedotjs",
+  FaHtml5: "simple-icons:html5", FaCss3Alt: "simple-icons:css3", FaGithub: "simple-icons:github",
+  SiJavascript: "simple-icons:javascript", SiTypescript: "simple-icons:typescript",
+  SiTailwindcss: "simple-icons:tailwindcss", SiExpress: "simple-icons:express",
+  SiMongodb: "simple-icons:mongodb", SiPostman: "simple-icons:postman",
+  SiNetlify: "simple-icons:netlify", SiRender: "simple-icons:render", SiAmazons3: "simple-icons:amazonaws",
 };
 
-// நிக்ஷன் பயன்படுத்திய அதே Iconify SVG API ஜெனரேட்டர் ஃபங்ஷன்
-function getIconUrl(key, color) {
-  if (!key) return null;
-  const trimmed = key.trim();
-  const lower = trimmed.toLowerCase();
+const SIMPLE_ICON_ALIASES = {
+  html: "html5", css: "css3", js: "javascript", tailwind: "tailwindcss",
+  node: "nodedotjs", nodejs: "nodedotjs", expressjs: "express", postgres: "postgresql",
+  aws: "amazonaws", amazonaws: "amazonaws", python: "python", mysql: "mysql",
+  react: "react", javascript: "javascript", typescript: "typescript", mongodb: "mongodb",
+  docker: "docker", git: "git", github: "github", java: "java", php: "php",
+  firebase: "firebase", figma: "figma", wordpress: "wordpress", canva: "canva",
+};
 
-  // கோலன் (:) இல்லையெனில் Legacy மேப் அல்லது டிஃபால்ட்டாக simple-icons சேர்க்கப்படும்
-  let identifier = LEGACY_ICONS[lower] || trimmed;
-  if (!identifier.includes(":")) {
-    identifier = `simple-icons:${lower}`;
-  }
-
-  const match = identifier.match(/^([a-z0-9-]+):([a-z0-9-]+)$/i);
-  if (!match) return null;
-
-  const [, collection, name] = match;
-  const params = new URLSearchParams();
-  if (color && /^#[0-9a-f]{3,8}$/i.test(color)) {
-    params.append("color", color);
-  }
-
-  const query = params.toString();
-  return `https://api.iconify.design/${collection}/${name}.svg${query ? `?${query}` : ""}`;
+function normalizeIconIdentifier(icon) {
+  const raw = String(icon || "").trim();
+  if (!raw) return "";
+  if (LEGACY_ICONS[raw]) return LEGACY_ICONS[raw];
+  if (raw.includes(":")) return raw.toLowerCase();
+  const slug = raw.toLowerCase().replace(/\s+/g, "-");
+  return `simple-icons:${SIMPLE_ICON_ALIASES[slug] || slug}`;
 }
 
-// டைனமிக் SVG ஐகான் காம்போனென்ட் (லோட் ஆகவில்லை எனில் Code2 காட்டும்)
-function SkillIcon({ iconKey, color, name }) {
-  const [failed, setFailed] = useState(false);
-  const iconUrl = getIconUrl(iconKey, color);
+function getIconUrl(icon) {
+  const id = normalizeIconIdentifier(icon);
+  const match = id.match(/^([a-z0-9-]+):([a-z0-9-]+)$/i);
+  if (!match) return null;
+  return `https://api.iconify.design/${match[1]}/${match[2]}.svg`;
+}
 
-  useEffect(() => {
-    setFailed(false);
-  }, [iconKey, color]);
+function SkillIcon({ icon, color, name }) {
+  const src = getIconUrl(icon);
+  const [failedSrc, setFailedSrc] = useState("");
+  const failed = Boolean(src && failedSrc === src);
 
-  if (!iconUrl || failed) {
-    return <Code2 size={32} color={color || "#FF5C00"} />;
+  if (!src || failed) {
+    return (
+      <span
+        className="inline-flex shrink-0 items-center justify-center rounded-lg bg-white/5 font-bold text-slate-400"
+        style={{ width: 32, height: 32 }}
+      >
+        {String(icon || "?").trim().slice(0, 1).toUpperCase() || "?"}
+      </span>
+    );
   }
 
   return (
-    <img
-      src={iconUrl}
-      alt={name || "skill"}
-      width="32"
-      height="32"
-      loading="lazy"
-      onError={() => setFailed(true)}
-      className="w-8 h-8 object-contain transition-transform duration-300"
-    />
+    <span
+      key={src}
+      className="inline-block shrink-0"
+      role="img"
+      aria-label={`${name} icon`}
+      style={{
+        width: 32,
+        height: 32,
+        backgroundColor: color || "#FF5C00",
+        WebkitMask: `url("${src}") center / contain no-repeat`,
+        mask: `url("${src}") center / contain no-repeat`,
+      }}
+    >
+      <img src={src} alt="" width={32} height={32} onError={() => setFailedSrc(src)} style={{ display: "none" }} />
+    </span>
   );
 }
 
@@ -6186,15 +6210,16 @@ const Skill = () => {
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4">
             {skills.map((skill, i) => {
               const isHovered = hovered === i;
+              const skillColor = skill.color || "#FF5C00";
 
               return (
                 <div
                   key={skill._id || skill.name}
                   className="flex flex-col items-center justify-center gap-2.5 p-4 sm:p-5 rounded-2xl border transition-all duration-300 cursor-default bg-white/3"
                   style={{
-                    borderColor: isHovered ? skill.color : "rgba(255,255,255,0.08)",
-                    backgroundColor: isHovered ? `${skill.color}15` : "rgba(255,255,255,0.03)",
-                    boxShadow: isHovered ? `0 8px 24px ${skill.color}25` : "none",
+                    borderColor: isHovered ? skillColor : "rgba(255,255,255,0.08)",
+                    backgroundColor: isHovered ? `${skillColor}15` : "rgba(255,255,255,0.03)",
+                    boxShadow: isHovered ? `0 8px 24px ${skillColor}25` : "none",
                     transform: isHovered ? "translateY(-4px)" : "none",
                   }}
                   onMouseEnter={() => setHovered(i)}
@@ -6202,8 +6227,8 @@ const Skill = () => {
                 >
                   <div className="w-10 h-10 flex items-center justify-center">
                     <SkillIcon
-                      iconKey={skill.key}
-                      color={skill.color}
+                      icon={skill.icon || skill.key}
+                      color={skillColor}
                       name={skill.name}
                     />
                   </div>
@@ -6229,13 +6254,12 @@ export default Skill;
 ================================================================================
 FILE: src/seo/SEO.jsx
 ================================================================================
-import { Helmet } from "react-helmet-async";
 import PropTypes from "prop-types";
 
 export default function SEO({ title, description, keywords, url, image }) {
   return (
-    <Helmet>
-      {/* Basic SEO */}
+    <>
+      {/* React 19 இந்த டேகுகளைத் தானாகவே <head>-க்கு ஏற்றிவிடும் */}
       <title>{title}</title>
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
@@ -6245,7 +6269,7 @@ export default function SEO({ title, description, keywords, url, image }) {
       {/* Canonical URL */}
       {url && <link rel="canonical" href={url} />}
 
-      {/* Open Graph / Facebook */}
+      {/* Open Graph (WhatsApp, LinkedIn, Facebook) */}
       <meta property="og:type" content="website" />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
@@ -6257,7 +6281,7 @@ export default function SEO({ title, description, keywords, url, image }) {
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       {image && <meta name="twitter:image" content={image} />}
-    </Helmet>
+    </>
   );
 }
 
@@ -6297,7 +6321,7 @@ const seoData = {
   },
 
   skills: {
-    title: "Skills & Technologies | P. Bharath",
+    title: "Skills | P. Bharath",
     description:
       "Explore technical skills and tools mastered by P. Bharath: React.js, Tailwind CSS, Node.js, Express, MongoDB, MySQL, Figma, Git, and REST APIs.",
     keywords:
@@ -6307,7 +6331,7 @@ const seoData = {
   },
 
   experience: {
-    title: "Work Experience | P. Bharath",
+    title: "Experience | P. Bharath",
     description:
       "Professional work history and internships of P. Bharath including Magic Bus India Foundation and Walk Horizons.",
     keywords:
@@ -6317,7 +6341,7 @@ const seoData = {
   },
 
   projects: {
-    title: "Featured Projects | P. Bharath",
+    title: "Projects | P. Bharath",
     description:
       "Showcase of responsive web projects built by P. Bharath, including Cerulean Forge, Biological E, BE Biosol, and Recipe Shopping List Builder.",
     keywords:
