@@ -31,13 +31,14 @@ const Intro = ({ onDone }) => {
         opacity: phase === 3 ? 0 : 1,
         pointerEvents: phase === 3 ? "none" : "auto",
       }}
+      className="px-4"
     >
       {/* Background Radial Glow Pulse */}
       <div
         style={{
           position: "absolute",
-          width: 550,
-          height: 550,
+          width: "min(550px, 90vw)",
+          height: "min(550px, 90vw)",
           borderRadius: "50%",
           background:
             "radial-gradient(circle, rgba(255,92,0,0.22) 0%, rgba(255,92,0,0.04) 50%, transparent 70%)",
@@ -48,7 +49,7 @@ const Intro = ({ onDone }) => {
         }}
       />
 
-      {/* 3D Shield Badge Container with Intense Neon Glow */}
+      {/* 3D Shield Badge Container with Perfect Mobile Centering */}
       <div
         style={{
           position: "relative",
@@ -65,8 +66,8 @@ const Intro = ({ onDone }) => {
         <div
           style={{
             position: "relative",
-            width: "clamp(150px, 28vw, 190px)",
-            height: "clamp(180px, 34vw, 230px)",
+            width: "clamp(130px, 28vw, 190px)",
+            height: "clamp(160px, 34vw, 230px)",
             background: "linear-gradient(145deg, #0e1217, #050608)",
             border: "1.5px solid rgba(255, 92, 0, 0.55)",
             boxShadow:
@@ -108,7 +109,7 @@ const Intro = ({ onDone }) => {
           fontFamily: "'DM Mono', monospace",
           fontSize: "clamp(11px, 2.5vw, 13px)",
           color: "rgba(255,255,255,0.75)",
-          letterSpacing: "6px",
+          letterSpacing: "4px",
           textTransform: "uppercase",
           marginTop: "30px",
           transition: "all 0.8s 0.2s cubic-bezier(0.16, 1, 0.3, 1)",

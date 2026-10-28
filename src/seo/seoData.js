@@ -3,7 +3,7 @@ const DEFAULT_IMAGE = `${SITE_URL}/og-preview.png`;
 
 const seoData = {
   home: {
-    title: "P. Bharath (Bharath P | பரத் பெ) — Front-End Developer & UI/UX Designer",
+    title: "P. Bharath — Front-End Developer & UI/UX Designer",
     description:
       "Official portfolio of P. Bharath (பரத் பெ / Bharath P), a passionate Front-End Developer and UI/UX Designer based in Chennai. Specializing in React, Tailwind CSS, JavaScript, and MERN Stack.",
     keywords:
@@ -13,7 +13,7 @@ const seoData = {
   },
 
   about: {
-    title: "About P. Bharath (Bharath P | பரத் பெ) | Front-End Engineer",
+    title: "About Bharath P | Front-End Engineer",
     description:
       "Learn more about P. Bharath (பரத் பெ), an engineering-driven front-end developer and designer from Chennai crafting clean, responsive, and intuitive web experiences.",
     keywords:
@@ -23,7 +23,7 @@ const seoData = {
   },
 
   skills: {
-    title: "Skills & Technologies | P. Bharath (Bharath P)",
+    title: "Skills & Technologies | Bharath P",
     description:
       "Explore technical skills and tools mastered by P. Bharath (பரத் பெ): React.js, Tailwind CSS, Node.js, Express, MongoDB, MySQL, Figma, Git, and REST APIs.",
     keywords:
@@ -33,7 +33,7 @@ const seoData = {
   },
 
   experience: {
-    title: "Work Experience | P. Bharath (Bharath P)",
+    title: "Work Experience | Bharath P",
     description:
       "Professional work history and internships of P. Bharath (பரத் பெ) including Magic Bus India Foundation and Walk Horizons.",
     keywords:
@@ -43,7 +43,7 @@ const seoData = {
   },
 
   projects: {
-    title: "Featured Projects | P. Bharath (Bharath P)",
+    title: "Featured Projects | Bharath P",
     description:
       "Showcase of responsive web projects built by P. Bharath (பரத் பெ), including Cerulean Forge, Biological E, BE Biosol, and Recipe Shopping List Builder.",
     keywords:
@@ -53,7 +53,7 @@ const seoData = {
   },
 
   contact: {
-    title: "Contact P. Bharath (Bharath P | பரத் பெ)",
+    title: "Contact Bharath P | Freelance & Collaboration",
     description:
       "Get in touch with P. Bharath (பரத் பெ) for freelance projects, collaboration, or full-time frontend engineering opportunities in Chennai.",
     keywords:
