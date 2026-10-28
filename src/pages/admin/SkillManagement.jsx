@@ -5,121 +5,331 @@ import { Plus, Edit, Trash2, Code2, ArrowUp, ArrowDown } from "lucide-react";
 
 const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
 
-const LEGACY_ICON_MAP = {
-  FaReact: "simple-icons:react", FaNodeJs: "simple-icons:nodedotjs",
-  FaHtml5: "simple-icons:html5", FaCss3Alt: "simple-icons:css3", FaGithub: "simple-icons:github",
-  SiJavascript: "simple-icons:javascript", SiTypescript: "simple-icons:typescript",
-  SiTailwindcss: "simple-icons:tailwindcss", SiExpress: "simple-icons:express",
-  SiMongodb: "simple-icons:mongodb", SiPostman: "simple-icons:postman",
-  SiNetlify: "simple-icons:netlify", SiRender: "simple-icons:render", SiAmazons3: "simple-icons:amazonaws",
+const LEGACY_ICONS = {
+  html: "simple-icons:html5",
+  html5: "simple-icons:html5",
+  css: "simple-icons:css3",
+  css3: "simple-icons:css3",
+  tailwind: "simple-icons:tailwindcss",
+  tailwindcss: "simple-icons:tailwindcss",
+  javascript: "simple-icons:javascript",
+  js: "simple-icons:javascript",
+  react: "simple-icons:react",
+  reactjs: "simple-icons:react",
+  figma: "simple-icons:figma",
+  wordpress: "simple-icons:wordpress",
+  github: "simple-icons:github",
+  mongodb: "simple-icons:mongodb",
+  express: "simple-icons:express",
+  expressjs: "simple-icons:express",
+  nodejs: "simple-icons:nodedotjs",
+  node: "simple-icons:nodedotjs",
+  mysql: "simple-icons:mysql",
+  postgresql: "simple-icons:postgresql",
+  postgres: "simple-icons:postgresql",
+  python: "simple-icons:python",
+  java: "simple-icons:java",
+  php: "simple-icons:php",
+  git: "simple-icons:git",
+  docker: "simple-icons:docker",
+  canva: "simple-icons:canva",
+  aws: "simple-icons:amazonaws",
+  firebase: "simple-icons:firebase",
+  postman: "simple-icons:postman",
+  bootstrap: "simple-icons:bootstrap",
+  redux: "simple-icons:redux",
+  graphql: "simple-icons:graphql",
+  nextjs: "simple-icons:nextdotjs",
+  vue: "simple-icons:vuedotjs",
+  typescript: "simple-icons:typescript",
+  ts: "simple-icons:typescript",
+  linux: "simple-icons:linux",
+  nginx: "simple-icons:nginx",
 };
 
-const SIMPLE_ICON_ALIASES = { 
-  html: "html5", css: "css3", js: "javascript", tailwind: "tailwindcss", 
-  node: "nodedotjs", nodejs: "nodedotjs", expressjs: "express", postgres: "postgresql", 
-  aws: "amazonaws", amazonaws: "amazonaws", python: "python", mysql: "mysql", 
-  react: "react", javascript: "javascript", typescript: "typescript", mongodb: "mongodb", 
-  docker: "docker", git: "git", github: "github", java: "java", php: "php", 
-  firebase: "firebase", figma: "figma", wordpress: "wordpress", canva: "canva",
-};
+function sanitizeColor(color) {
+  if (!color || typeof color !== "string") return "#FF5C00";
+  let c = color.trim();
+  if (!c.startsWith("#")) c = `#${c}`;
 
-function normalizeIconIdentifier(icon) {
-  const raw = String(icon || "").trim();
-  if (!raw) return "";
-  if (LEGACY_ICON_MAP[raw]) return LEGACY_ICON_MAP[raw];
-  if (raw.includes(":")) return raw.toLowerCase();
-  const slug = raw.toLowerCase().replace(/\s+/g, "-");
-  return `simple-icons:${SIMPLE_ICON_ALIASES[slug] || slug}`;
+  const hexPart = c.slice(1).replace(/[^0-9a-fA-F]/g, "");
+  if (hexPart.length === 3) {
+    c = `#${hexPart[0]}${hexPart[0]}${hexPart[1]}${hexPart[1]}${hexPart[2]}${hexPart[2]}`;
+  } else if (hexPart.length >= 6) {
+    c = `#${hexPart.slice(0, 6)}`;
+  } else {
+    c = `#${hexPart.padEnd(6, "0")}`;
+  }
+
+  return /^#[0-9a-fA-F]{6}$/.test(c) ? c : "#FF5C00";
 }
 
-function iconUrl(icon) {
-  const id = normalizeIconIdentifier(icon);
-  const match = id.match(/^([a-z0-9-]+):([a-z0-9-]+)$/i);
+function getIconUrl(key, color) {
+  if (!key) return null;
+  const clean = key.trim().toLowerCase();
+
+  let identifier = LEGACY_ICONS[clean] || clean;
+  if (!identifier.includes(":")) {
+    identifier = `simple-icons:${clean}`;
+  }
+
+  const match = identifier.match(/^([a-z0-9-]+):([a-z0-9-]+)$/i);
   if (!match) return null;
-  return `https://api.iconify.design/${match[1]}/${match[2]}.svg`;
+
+  const [, collection, name] = match;
+  const validColor = sanitizeColor(color);
+  return `https://api.iconify.design/${collection}/${name}.svg?color=${encodeURIComponent(validColor)}`;
 }
 
-function IconPreview({ icon, color, size = 30 }) {
-  const src = iconUrl(icon);
-  const [failedSrc, setFailedSrc] = useState("");
-  const failed = Boolean(src && failedSrc === src);
+function SkillIconPreview({ iconKey, color, size = 20 }) {
+  const [failed, setFailed] = useState(false);
+  const validColor = sanitizeColor(color);
+  const iconUrl = getIconUrl(iconKey, validColor);
 
-  if (!src || failed) {
-    return (
-      <span
-        className="inline-flex shrink-0 items-center justify-center rounded-lg bg-white/5 font-bold text-slate-400"
-        style={{ width: size, height: size }}
-      >
-        {String(icon || "?").trim().slice(0, 1).toUpperCase() || "?"}
-      </span>
-    );
+  useEffect(() => {
+    setFailed(false);
+  }, [iconKey, color]);
+
+  if (!iconUrl || failed) {
+    return <Code2 size={size} color={validColor} />;
   }
 
   return (
-    <span
-      key={src}
-      className="inline-block shrink-0"
-      role="img"
-      aria-label="Icon preview"
-      style={{
-        width: size,
-        height: size,
-        backgroundColor: color || "#FF5C00",
-        WebkitMask: `url("${src}") center / contain no-repeat`,
-        mask: `url("${src}") center / contain no-repeat`,
-      }}
-    >
-      <img src={src} alt="" width={size} height={size} onError={() => setFailedSrc(src)} style={{ display: "none" }} />
-    </span>
+    <img
+      src={iconUrl}
+      alt="preview"
+      width={size}
+      height={size}
+      loading="lazy"
+      onError={() => setFailed(true)}
+      className="object-contain"
+      style={{ width: size, height: size }}
+    />
   );
 }
 
-IconPreview.propTypes = {
-  icon: PropTypes.string,
-  color: PropTypes.string,
-  size: PropTypes.number,
-};
+function emptySkillForm(initialOrder = 1) {
+  return {
+    name: "",
+    key: "",
+    color: "#FF5C00",
+    order: initialOrder,
+  };
+}
 
-const emptyForm = {
-  name: "",
-  icon: "",
-  color: "#FF5C00",
-  order: 1,
-  published: true,
+function SkillForm({ token, skill, initialOrder, onCancel, onSaved }) {
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
+  const [form, setForm] = useState(() => {
+    if (!skill) return emptySkillForm(initialOrder);
+    return {
+      name: skill.name || "",
+      key: skill.key || skill.icon || "",
+      color: sanitizeColor(skill.color),
+      order: skill.order ?? 1,
+    };
+  });
+
+  function updateField(event) {
+    const { name, value } = event.target;
+    setForm((current) => ({ ...current, [name]: value }));
+  }
+
+  const hasChanges =
+    !skill ||
+    form.name.trim() !== (skill.name || "").trim() ||
+    form.key.trim().toLowerCase() !== (skill.key || skill.icon || "").trim().toLowerCase() ||
+    sanitizeColor(form.color).toLowerCase() !== sanitizeColor(skill.color).toLowerCase() ||
+    Number(form.order) !== Number(skill.order ?? 1);
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    setError("");
+
+    if (skill && !hasChanges) {
+      return;
+    }
+
+    setSaving(true);
+
+    try {
+      const payload = {
+        name: form.name.trim(),
+        key: form.key.trim().toLowerCase(),
+        icon: form.key.trim().toLowerCase(),
+        color: sanitizeColor(form.color),
+        order: Number(form.order),
+      };
+
+      const response = await fetch(
+        skill
+          ? `${API_URL}/api/admin/skills/${skill._id}`
+          : `${API_URL}/api/admin/skills`,
+        {
+          method: skill ? "PUT" : "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      const data = await response.json();
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || "Unable to save skill.");
+      }
+      onSaved(skill ? "updated" : "created", payload.name);
+    } catch (submitError) {
+      setError(submitError.message || "Unable to save skill.");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6 text-white font-['Plus_Jakarta_Sans']">
+      <div className="flex items-center justify-between">
+        <h3 className="text-xl font-bold">{skill ? "Edit Skill" : "Add New Skill"}</h3>
+        <button
+          type="button"
+          onClick={onCancel}
+          className="rounded-xl border border-white/10 px-4 py-2 text-xs font-semibold text-white/75 hover:bg-white/5 cursor-pointer"
+        >
+          Cancel
+        </button>
+      </div>
+
+      {error && (
+        <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-3.5 text-sm text-red-300">
+          {error}
+        </div>
+      )}
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label className="block text-xs font-semibold uppercase tracking-wider text-white/70 mb-1.5">
+            Skill Name *
+          </label>
+          <input
+            name="name"
+            value={form.name}
+            onChange={updateField}
+            required
+            className="w-full rounded-xl border border-white/10 bg-[#111111] px-4 py-3 text-sm text-white outline-none focus:border-[#FF5C00]"
+            placeholder="e.g. MySQL"
+          />
+        </div>
+
+        <div>
+          <label className="block text-xs font-semibold uppercase tracking-wider text-white/70 mb-1.5">
+            Icon Key / Identifier *
+          </label>
+          <div className="flex gap-2 items-center">
+            <input
+              name="key"
+              value={form.key}
+              onChange={updateField}
+              required
+              className="flex-1 rounded-xl border border-white/10 bg-[#111111] px-4 py-3 text-sm text-white outline-none focus:border-[#FF5C00]"
+              placeholder="e.g. simple-icons:mysql or mysql"
+            />
+            <div
+              className="w-11 h-11 rounded-xl border border-white/10 bg-[#111111] flex items-center justify-center shrink-0 p-1"
+              title="Live Icon Preview"
+            >
+              <SkillIconPreview iconKey={form.key} color={form.color} size={22} />
+            </div>
+          </div>
+          <span className="text-[11px] text-white/40 mt-1 block">
+            Enter an Iconify identifier (e.g. simple-icons:mysql, logos:docker) or direct name (e.g. mysql, react).
+          </span>
+        </div>
+
+        <div>
+          <label className="block text-xs font-semibold uppercase tracking-wider text-white/70 mb-1.5">
+            Brand Color (Hex) *
+          </label>
+          <div className="flex gap-3 items-center">
+            <input
+              type="color"
+              name="color"
+              value={sanitizeColor(form.color)}
+              onInput={updateField}
+              onChange={updateField}
+              className="w-12 h-11 rounded-xl border border-white/10 bg-[#111111] p-1 cursor-pointer"
+            />
+            <input
+              type="text"
+              name="color"
+              value={form.color}
+              onChange={updateField}
+              required
+              className="flex-1 rounded-xl border border-white/10 bg-[#111111] px-4 py-3 text-sm text-white outline-none focus:border-[#FF5C00]"
+              placeholder="e.g. #00758F"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label className="block text-xs font-semibold uppercase tracking-wider text-white/70 mb-1.5">
+            Display Order
+          </label>
+          <input
+            type="number"
+            name="order"
+            value={form.order}
+            onChange={updateField}
+            min="0"
+            className="w-full rounded-xl border border-white/10 bg-[#111111] px-4 py-3 text-sm text-white outline-none focus:border-[#FF5C00]"
+          />
+        </div>
+      </div>
+
+      <div className="flex justify-end gap-3 pt-4 border-t border-white/10">
+        <button
+          type="submit"
+          disabled={saving}
+          className="rounded-xl bg-[#FF5C00] px-6 py-3 text-sm font-bold text-white transition hover:bg-[#cc4900] disabled:opacity-50 cursor-pointer"
+        >
+          {saving ? "Saving..." : skill ? "Update Skill" : "Save Skill"}
+        </button>
+      </div>
+    </form>
+  );
+}
+
+SkillForm.propTypes = {
+  token: PropTypes.string.isRequired,
+  skill: PropTypes.object,
+  initialOrder: PropTypes.number.isRequired,
+  onCancel: PropTypes.func.isRequired,
+  onSaved: PropTypes.func.isRequired,
 };
 
 export default function SkillManagement({ token }) {
   const [skills, setSkills] = useState([]);
-  const [form, setForm] = useState(emptyForm);
-  const [editingId, setEditingId] = useState(null);
-  const [showForm, setShowForm] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
-  const [deletingId, setDeletingId] = useState("");
-  const [error, setError] = useState("");
-  const [pendingDelete, setPendingDelete] = useState(null);
+  const [showForm, setShowForm] = useState(false);
+  const [editingSkill, setEditingSkill] = useState(null);
   const [modal, setModal] = useState(null);
+  const [pendingDelete, setPendingDelete] = useState(null);
 
   const loadSkills = useCallback(async () => {
     setLoading(true);
-    setError("");
-
     try {
       const response = await fetch(`${API_URL}/api/admin/skills`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
-
       const data = await response.json();
-
-      if (!response.ok || !data.success) {
-        throw new Error(data.message || "Unable to load skills.");
+      if (data.success) {
+        const sorted = (data.skills || []).sort(
+          (a, b) => (a.order || 0) - (b.order || 0)
+        );
+        setSkills(sorted);
       }
-
-      setSkills(Array.isArray(data.skills) ? data.skills : []);
     } catch (err) {
-      setError(err.message || "Unable to load skills.");
+      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -129,153 +339,69 @@ export default function SkillManagement({ token }) {
     loadSkills();
   }, [loadSkills]);
 
-  function startAdd() {
-    const nextOrder =
-      skills.length > 0
-        ? Math.max(...skills.map((skill) => Number(skill.order) || 0)) + 1
-        : 1;
+  // மீண்டும் சேர்க்கப்பட்ட மேலேயும் கீழேயும் நகர்த்தும் (Move Up / Down) ஃபங்ஷன்
+  async function handleMove(index, direction) {
+    const targetIndex = direction === "up" ? index - 1 : index + 1;
+    if (targetIndex < 0 || targetIndex >= skills.length) return;
 
-    setEditingId(null);
-    setForm({
-      ...emptyForm,
-      order: nextOrder,
-    });
-    setError("");
-    setShowForm(true);
-  }
+    const updated = [...skills];
+    const temp = updated[index];
+    updated[index] = updated[targetIndex];
+    updated[targetIndex] = temp;
 
-  function startEdit(skill) {
-    setEditingId(skill._id);
-    setForm({
-      name: skill.name || "",
-      icon: skill.icon || skill.key || "",
-      color: skill.color || "#FF5C00",
-      order: skill.order ?? 1,
-      published: skill.published ?? true,
-    });
-    setError("");
-    setShowForm(true);
-  }
-
-  function updateField(event) {
-    const { name, value, type, checked } = event.target;
-
-    setForm((current) => ({
-      ...current,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  }
-
-  async function handleSubmit(event) {
-    event.preventDefault();
-    setSaving(true);
-    setError("");
+    const reindexed = updated.map((s, idx) => ({ ...s, order: idx + 1 }));
+    setSkills(reindexed);
 
     try {
-      if (!form.name.trim()) throw new Error("Please enter a skill name.");
-      if (!form.icon.trim()) throw new Error("Please enter an icon name or Iconify identifier.");
-      if (!/^#(?:[0-9a-f]{3}|[0-9a-f]{6})$/i.test(form.color)) throw new Error("Please choose a valid hexadecimal color.");
-      
-      const payload = {
-        name: form.name.trim(),
-        icon: normalizeIconIdentifier(form.icon),
-        key: normalizeIconIdentifier(form.icon), // compatibility with existing schema
-        color: form.color,
-        order: Number(form.order),
-        published: form.published,
-      };
-
-      const response = await fetch(
-        editingId
-          ? `${API_URL}/api/admin/skills/${editingId}`
-          : `${API_URL}/api/admin/skills`,
-        {
-          method: editingId ? "PUT" : "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(payload),
-        },
+      await Promise.all(
+        reindexed.map((s) =>
+          fetch(`${API_URL}/api/admin/skills/${s._id}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              name: s.name,
+              key: s.key || s.icon,
+              icon: s.key || s.icon,
+              color: sanitizeColor(s.color),
+              order: s.order,
+            }),
+          })
+        )
       );
-
-      const data = await response.json();
-
-      if (!response.ok || !data.success) {
-        throw new Error(data.message || "Unable to save skill.");
-      }
-
-      const wasEditing = Boolean(editingId);
-      const skillName = payload.name;
-
-      setShowForm(false);
-      setEditingId(null);
-      setForm({ ...emptyForm });
-
-      await loadSkills();
-
-      setModal({
-        type: "success",
-        variant: "success",
-        title: wasEditing ? "Skill Updated!" : "Skill Added!",
-        message: wasEditing
-          ? `"${skillName}" was updated successfully.`
-          : `"${skillName}" was added successfully.`,
-        confirmText: "Done",
-        cancelText: "Close",
-      });
+      loadSkills();
     } catch (err) {
-      setError(err.message || "Unable to save skill.");
-    } finally {
-      setSaving(false);
+      console.error("Failed to update order:", err);
     }
   }
 
   async function confirmDelete() {
     if (!pendingDelete) return;
-
-    const skill = pendingDelete;
-    setDeletingId(skill._id);
-    setError("");
-
+    const deletedName = pendingDelete.name;
     try {
-      const response = await fetch(`${API_URL}/api/admin/skills/${skill._id}`, {
+      const res = await fetch(`${API_URL}/api/admin/skills/${pendingDelete._id}`, {
         method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
-
-      const data = await response.json();
-
-      if (!response.ok || !data.success) {
-        throw new Error(data.message || "Unable to delete skill.");
+      if (res.ok) {
+        setSkills((curr) => curr.filter((s) => s._id !== pendingDelete._id));
+        setPendingDelete(null);
+        setModal({
+          type: "success",
+          variant: "success",
+          title: "Skill Deleted!",
+          message: `"${deletedName}" has been deleted successfully.`,
+          confirmText: "Done",
+          cancelText: "Close",
+        });
       }
-
-      setSkills((current) => current.filter((item) => item._id !== skill._id));
-      setPendingDelete(null);
-
-      setModal({
-        type: "success",
-        variant: "success",
-        title: "Skill Deleted!",
-        message: `"${skill.name}" was deleted successfully.`,
-        confirmText: "Done",
-        cancelText: "Close",
-      });
     } catch (err) {
-      setError(err.message || "Unable to delete skill.");
+      console.error(err);
       setModal(null);
       setPendingDelete(null);
-    } finally {
-      setDeletingId("");
     }
-  }
-
-  function closeModal() {
-    if (deletingId) return;
-    setModal(null);
-    setPendingDelete(null);
   }
 
   return (
@@ -297,8 +423,10 @@ export default function SkillManagement({ token }) {
 
           {!showForm && (
             <button
-              type="button"
-              onClick={startAdd}
+              onClick={() => {
+                setEditingSkill(null);
+                setShowForm(true);
+              }}
               className="inline-flex items-center gap-2 rounded-xl bg-[#FF5C00] px-4 py-2.5 text-sm font-bold text-white transition hover:bg-[#cc4900] cursor-pointer"
             >
               <Plus size={18} /> Add Skill
@@ -307,154 +435,35 @@ export default function SkillManagement({ token }) {
         </div>
       </div>
 
-      {error && (
-        <div
-          role="alert"
-          className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300"
-        >
-          {error}
-          <button
-            type="button"
-            onClick={loadSkills}
-            className="ml-3 font-semibold text-white underline"
-          >
-            Retry
-          </button>
+      {showForm ? (
+        <div className="rounded-2xl border border-white/10 bg-[#0a0a0a] p-6">
+          <SkillForm
+            token={token}
+            skill={editingSkill}
+            initialOrder={skills.length + 1}
+            onCancel={() => {
+              setShowForm(false);
+              setEditingSkill(null);
+            }}
+            onSaved={async (action, skillName) => {
+              setShowForm(false);
+              setEditingSkill(null);
+              await loadSkills();
+              setModal({
+                type: "success",
+                variant: "success",
+                title: action === "created" ? "Skill Added!" : "Skill Updated!",
+                message:
+                  action === "created"
+                    ? `"${skillName}" has been added to your skills successfully.`
+                    : `"${skillName}" has been updated successfully.`,
+                confirmText: "Done",
+                cancelText: "Close",
+              });
+            }}
+          />
         </div>
-      )}
-
-      {showForm && (
-        <form
-          onSubmit={handleSubmit}
-          className="space-y-5 rounded-2xl border border-white/10 bg-[#0a0a0a] p-5 sm:p-7"
-        >
-          <div className="flex items-center justify-between gap-3">
-            <h3 className="text-xl font-bold text-white">
-              {editingId ? "Edit Skill" : "Add New Skill"}
-            </h3>
-
-            <button
-              type="button"
-              onClick={() => {
-                setShowForm(false);
-                setEditingId(null);
-                setError("");
-              }}
-              className="rounded-xl border border-white/10 px-4 py-2 text-xs font-semibold text-white/75 hover:bg-white/5 cursor-pointer"
-            >
-              Cancel
-            </button>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-white/70 mb-1.5">
-                Skill Name *
-              </label>
-              <input
-                name="name"
-                value={form.name}
-                onChange={updateField}
-                required
-                maxLength={80}
-                placeholder="e.g. MySQL"
-                className="w-full rounded-xl border border-white/10 bg-[#111111] px-4 py-3 text-sm text-white outline-none focus:border-[#FF5C00]"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-white/70 mb-1.5">
-                Icon Name or Identifier *
-              </label>
-              <div className="flex items-center gap-3">
-                <input
-                  name="icon"
-                  value={form.icon}
-                  onChange={updateField}
-                  required
-                  maxLength={100}
-                  placeholder="e.g. mysql or logos:docker"
-                  className="flex-1 rounded-xl border border-white/10 bg-[#111111] px-4 py-3 text-sm text-white outline-none focus:border-[#FF5C00]"
-                />
-                <div
-                  className="w-11 h-11 rounded-xl border border-white/10 bg-[#111111] flex items-center justify-center shrink-0 p-1"
-                  title="Live icon preview"
-                >
-                  <IconPreview icon={form.icon} color={form.color} size={24} />
-                </div>
-              </div>
-              <span className="text-[11px] text-white/40 mt-1 block">
-                Type <code className="text-white/60">mysql</code>, <code className="text-white/60">python</code> or <code className="text-white/60">logos:docker</code>.
-              </span>
-            </div>
-
-            <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-white/70 mb-1.5">
-                Brand Color (Hex) *
-              </label>
-              <div className="flex gap-3 items-center">
-                <input
-                  type="color"
-                  name="color"
-                  value={form.color}
-                  onChange={updateField}
-                  className="w-12 h-11 rounded-xl border border-white/10 bg-[#111111] p-1 cursor-pointer"
-                />
-                <input
-                  type="text"
-                  name="color"
-                  value={form.color}
-                  onChange={updateField}
-                  required
-                  className="flex-1 rounded-xl border border-white/10 bg-[#111111] px-4 py-3 text-sm text-white outline-none focus:border-[#FF5C00]"
-                  placeholder="e.g. #00758F"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-white/70 mb-1.5">
-                Display Order
-              </label>
-              <input
-                type="number"
-                name="order"
-                value={form.order}
-                onChange={updateField}
-                min="0"
-                step="1"
-                required
-                className="w-full rounded-xl border border-white/10 bg-[#111111] px-4 py-3 text-sm text-white outline-none focus:border-[#FF5C00]"
-              />
-            </div>
-          </div>
-
-          <div className="flex gap-6 pt-2">
-            <label className="flex items-center gap-2 text-sm cursor-pointer">
-              <input
-                type="checkbox"
-                name="published"
-                checked={form.published}
-                onChange={updateField}
-                className="accent-[#FF5C00] w-4 h-4"
-              />
-              Published on portfolio
-            </label>
-          </div>
-
-          <div className="flex justify-end gap-3 pt-4 border-t border-white/10">
-            <button
-              type="submit"
-              disabled={saving}
-              className="rounded-xl bg-[#FF5C00] px-6 py-3 text-sm font-bold text-white transition hover:bg-[#cc4900] disabled:opacity-50 cursor-pointer"
-            >
-              {saving ? "Saving..." : editingId ? "Update Skill" : "Save Skill"}
-            </button>
-          </div>
-        </form>
-      )}
-
-      {loading ? (
+      ) : loading ? (
         <p className="text-white/70 text-sm">Loading skills...</p>
       ) : skills.length === 0 ? (
         <div className="rounded-2xl border border-white/10 bg-[#0a0a0a] p-10 text-center">
@@ -463,50 +472,65 @@ export default function SkillManagement({ token }) {
         </div>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-          {skills.map((skill) => (
-            <article
+          {skills.map((skill, index) => (
+            <div
               key={skill._id}
               className="rounded-2xl border border-white/10 bg-[#0a0a0a] p-5 flex flex-col justify-between"
             >
-              <div className="flex items-start justify-between gap-3">
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-10 h-10 rounded-xl border border-white/10 bg-[#111111] flex items-center justify-center shrink-0 p-1.5">
-                    <IconPreview icon={skill.icon || skill.key} color={skill.color || "#FF5C00"} size={22} />
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-3">
+                  <div
+                    className="w-10 h-10 rounded-xl border border-white/10 bg-[#111111] flex items-center justify-center shrink-0 p-1.5"
+                    style={{ borderColor: `${sanitizeColor(skill.color)}40` }}
+                  >
+                    <SkillIconPreview
+                      iconKey={skill.key || skill.icon}
+                      color={sanitizeColor(skill.color)}
+                      size={20}
+                    />
                   </div>
-                  <div className="min-w-0">
-                    <h3 className="font-bold text-base text-white truncate">{skill.name}</h3>
-                    <p className="font-['DM_Mono'] text-[11px] text-white/40 truncate">
-                      Key: {skill.icon || skill.key}
+                  <div>
+                    <h3 className="font-bold text-base text-white">
+                      {skill.name}
+                    </h3>
+                    <p className="font-['DM_Mono'] text-[11px] text-white/40">
+                      Key: {skill.key || skill.icon} | Order: {skill.order ?? index + 1}
                     </p>
                   </div>
                 </div>
 
-                <span
-                  className={`shrink-0 rounded-full border px-2 py-0.5 text-[10px] font-semibold ${
-                    skill.published !== false
-                      ? "border-emerald-400/30 bg-emerald-400/10 text-emerald-300"
-                      : "border-amber-400/30 bg-amber-400/10 text-amber-300"
-                  }`}
-                >
-                  {skill.published !== false ? "Published" : "Draft"}
-                </span>
-              </div>
-
-              <div className="mt-4 flex items-center justify-between text-xs text-white/40 font-['DM_Mono']">
-                <span>Order: {skill.order ?? 1}</span>
-                <span>{skill.color || "#FF5C00"}</span>
+                {/* Arrow Up / Down Buttons */}
+                <div className="flex flex-col gap-1">
+                  <button
+                    onClick={() => handleMove(index, "up")}
+                    disabled={index === 0}
+                    className="p-1 rounded bg-white/5 hover:bg-white/10 text-white/70 disabled:opacity-30 cursor-pointer"
+                    title="Move Up"
+                  >
+                    <ArrowUp size={14} />
+                  </button>
+                  <button
+                    onClick={() => handleMove(index, "down")}
+                    disabled={index === skills.length - 1}
+                    className="p-1 rounded bg-white/5 hover:bg-white/10 text-white/70 disabled:opacity-30 cursor-pointer"
+                    title="Move Down"
+                  >
+                    <ArrowDown size={14} />
+                  </button>
+                </div>
               </div>
 
               <div className="flex gap-2 mt-4 pt-3 border-t border-white/10">
                 <button
-                  type="button"
-                  onClick={() => startEdit(skill)}
+                  onClick={() => {
+                    setEditingSkill(skill);
+                    setShowForm(true);
+                  }}
                   className="flex-1 py-2 bg-white/5 hover:bg-white/10 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer"
                 >
                   <Edit size={14} /> Edit
                 </button>
                 <button
-                  type="button"
                   onClick={() => {
                     setPendingDelete(skill);
                     setModal({
@@ -518,13 +542,12 @@ export default function SkillManagement({ token }) {
                       cancelText: "Cancel",
                     });
                   }}
-                  disabled={deletingId === skill._id}
-                  className="flex-1 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-300 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
+                  className="flex-1 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-300 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer"
                 >
-                  <Trash2 size={14} /> {deletingId === skill._id ? "Deleting..." : "Delete"}
+                  <Trash2 size={14} /> Delete
                 </button>
               </div>
-            </article>
+            </div>
           ))}
         </div>
       )}
@@ -536,15 +559,17 @@ export default function SkillManagement({ token }) {
         variant={modal?.variant || "danger"}
         confirmText={modal?.confirmText || "Confirm"}
         cancelText={modal?.cancelText || "Close"}
-        isLoading={Boolean(deletingId)}
         onConfirm={() => {
-          if (modal?.type === "success") {
+          if (modal?.type === "confirmDelete") {
+            confirmDelete();
+          } else {
             setModal(null);
-            return;
           }
-          confirmDelete();
         }}
-        onCancel={closeModal}
+        onCancel={() => {
+          setModal(null);
+          setPendingDelete(null);
+        }}
       />
     </section>
   );

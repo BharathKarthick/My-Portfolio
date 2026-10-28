@@ -111,7 +111,6 @@ export default function HomeManagement({ token }) {
     event.preventDefault();
     setError("");
 
-    // எந்த மாற்றமும் செய்யாமல் Save கிளிக் செய்தால் எதுவும் நடக்காது
     if (!hasChanges) {
       return;
     }
@@ -205,7 +204,7 @@ export default function HomeManagement({ token }) {
       ) : (
         <form
           onSubmit={handleSubmit}
-          className="space-y-5 rounded-2xl border border-white/10 bg-[#0a0a0a] p-5 sm:p-7"
+          className="space-y-5 rounded-2xl border border-white/10 bg-[#0a0a0a] p-4 sm:p-7"
         >
           <div>
             <div className="flex flex-wrap items-center justify-between gap-3">
@@ -225,12 +224,24 @@ export default function HomeManagement({ token }) {
               </button>
             </div>
 
+            {/* மொபைலில் இடிக்காமல் இருக்க flex-col மற்றும் w-full அலைன்மென்ட் */}
             <div className="mt-4 space-y-3">
               {form.roleTitles.map((role, index) => (
-                <div key={index} className="flex items-center gap-2">
-                  <span className="w-6 text-xs text-white/40 font-['DM_Mono']">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
+                <div key={index} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 bg-white/2 p-3 rounded-xl border border-white/10">
+                  <div className="flex items-center justify-between sm:justify-start gap-2">
+                    <span className="w-6 text-xs text-white/40 font-['DM_Mono']">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => removeRole(index)}
+                      disabled={form.roleTitles.length === 1}
+                      className="sm:hidden rounded-lg border border-red-500/30 px-3 py-1.5 text-xs font-semibold text-red-300 hover:bg-red-500/10 disabled:opacity-30 cursor-pointer"
+                    >
+                      Remove
+                    </button>
+                  </div>
+
                   <input
                     type="text"
                     value={role}
@@ -239,11 +250,12 @@ export default function HomeManagement({ token }) {
                     required
                     className="flex-1 rounded-xl border border-white/10 bg-[#111111] px-4 py-2.5 text-sm text-white outline-none focus:border-[#FF5C00]"
                   />
+
                   <button
                     type="button"
                     onClick={() => removeRole(index)}
                     disabled={form.roleTitles.length === 1}
-                    className="rounded-lg border border-red-500/30 px-3 py-2.5 text-xs font-semibold text-red-300 hover:bg-red-500/10 disabled:opacity-30 cursor-pointer"
+                    className="hidden sm:inline-flex rounded-lg border border-red-500/30 px-3 py-2.5 text-xs font-semibold text-red-300 hover:bg-red-500/10 disabled:opacity-30 cursor-pointer"
                   >
                     Remove
                   </button>

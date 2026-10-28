@@ -139,7 +139,6 @@ export default function AboutManagement({ token }) {
     e.preventDefault();
     setError("");
 
-    // எந்த மாற்றமும் செய்யாமல் Save கிளிக் செய்தால் எதுவும் நடக்காது
     if (!hasChanges) {
       return;
     }
@@ -223,7 +222,7 @@ export default function AboutManagement({ token }) {
 
       <form
         onSubmit={handleSubmit}
-        className="rounded-2xl border border-white/10 bg-[#0a0a0a] p-6 space-y-6"
+        className="rounded-2xl border border-white/10 bg-[#0a0a0a] p-4 sm:p-6 space-y-6"
       >
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
@@ -270,10 +269,19 @@ export default function AboutManagement({ token }) {
           </div>
 
           {form.paragraphs.map((para, index) => (
-            <div key={index} className="flex items-start gap-2 bg-white/2 p-3 rounded-xl border border-white/10">
-              <span className="font-['DM_Mono'] text-xs text-white/40 pt-3 w-6 text-center">
-                {index + 1}
-              </span>
+            <div key={index} className="flex flex-col sm:flex-row items-stretch sm:items-start gap-2.5 bg-white/2 p-3 rounded-xl border border-white/10">
+              <div className="flex items-center justify-between sm:justify-start gap-2">
+                <span className="font-['DM_Mono'] text-xs text-white/40 w-6 text-center">
+                  {index + 1}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => removeParagraph(index)}
+                  className="sm:hidden p-1.5 rounded bg-red-500/10 text-red-300"
+                >
+                  <Trash2 size={14} />
+                </button>
+              </div>
               <textarea
                 rows={2}
                 value={para}
@@ -282,12 +290,12 @@ export default function AboutManagement({ token }) {
                 className="flex-1 rounded-lg border border-white/10 bg-[#111111] px-3 py-2 text-sm text-white outline-none focus:border-[#FF5C00]"
                 placeholder="Write paragraph here... Use *highlight text* for orange color."
               />
-              <div className="flex flex-col gap-1">
+              <div className="flex sm:flex-col justify-end gap-1.5">
                 <button
                   type="button"
                   onClick={() => moveParagraph(index, "up")}
                   disabled={index === 0}
-                  className="p-1 rounded bg-white/5 hover:bg-white/10 text-white/70 disabled:opacity-30 cursor-pointer"
+                  className="p-1.5 rounded bg-white/5 hover:bg-white/10 text-white/70 disabled:opacity-30 cursor-pointer"
                   title="Move Up"
                 >
                   <ArrowUp size={14} />
@@ -296,7 +304,7 @@ export default function AboutManagement({ token }) {
                   type="button"
                   onClick={() => moveParagraph(index, "down")}
                   disabled={index === form.paragraphs.length - 1}
-                  className="p-1 rounded bg-white/5 hover:bg-white/10 text-white/70 disabled:opacity-30 cursor-pointer"
+                  className="p-1.5 rounded bg-white/5 hover:bg-white/10 text-white/70 disabled:opacity-30 cursor-pointer"
                   title="Move Down"
                 >
                   <ArrowDown size={14} />
@@ -304,7 +312,7 @@ export default function AboutManagement({ token }) {
                 <button
                   type="button"
                   onClick={() => removeParagraph(index)}
-                  className="p-1 rounded bg-red-500/10 hover:bg-red-500/20 text-red-300 cursor-pointer"
+                  className="hidden sm:inline-flex p-1.5 rounded bg-red-500/10 hover:bg-red-500/20 text-red-300 cursor-pointer"
                   title="Delete"
                 >
                   <Trash2 size={14} />
@@ -314,6 +322,7 @@ export default function AboutManagement({ token }) {
           ))}
         </div>
 
+        {/* Info Cards: மொபைல் வியூவில் Label மேலே, Value கீழே தனித்தனி ரோவாக மாற்றுதல் */}
         <div className="space-y-3 pt-4 border-t border-white/10">
           <div className="flex justify-between items-center">
             <label className="text-xs font-semibold uppercase tracking-wider text-[#FF5C00]">
@@ -329,52 +338,62 @@ export default function AboutManagement({ token }) {
           </div>
 
           {form.infoCards.map((card, index) => (
-            <div key={index} className="flex items-center gap-2 bg-white/2 p-3 rounded-xl border border-white/10">
-              <span className="font-['DM_Mono'] text-xs text-white/40 w-6 text-center">
-                {index + 1}
-              </span>
-              <input
-                type="text"
-                value={card.label}
-                onChange={(e) => handleInfoCardChange(index, "label", e.target.value)}
-                placeholder="Label (e.g. Email)"
-                required
-                className="w-1/3 rounded-lg border border-white/10 bg-[#111111] px-3 py-2 text-sm text-white outline-none focus:border-[#FF5C00]"
-              />
-              <input
-                type="text"
-                value={card.value}
-                onChange={(e) => handleInfoCardChange(index, "value", e.target.value)}
-                placeholder="Value (e.g. abc@gmail.com)"
-                required
-                className="flex-1 rounded-lg border border-white/10 bg-[#111111] px-3 py-2 text-sm text-white outline-none focus:border-[#FF5C00]"
-              />
-              <div className="flex gap-1">
+            <div key={index} className="flex flex-col gap-2.5 bg-white/2 p-3.5 rounded-xl border border-white/10">
+              <div className="flex items-center justify-between">
+                <span className="font-['DM_Mono'] text-xs text-white/40">
+                  Card #{index + 1}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => removeInfoCard(index)}
+                  className="p-1 rounded bg-red-500/10 text-red-300 hover:bg-red-500/20 text-xs px-2"
+                >
+                  Delete Card
+                </button>
+              </div>
+
+              {/* Top Label */}
+              <div>
+                <label className="block text-[11px] text-white/60 mb-1">Label</label>
+                <input
+                  type="text"
+                  value={card.label}
+                  onChange={(e) => handleInfoCardChange(index, "label", e.target.value)}
+                  placeholder="e.g. Email"
+                  required
+                  className="w-full rounded-lg border border-white/10 bg-[#111111] px-3 py-2 text-sm text-white outline-none focus:border-[#FF5C00]"
+                />
+              </div>
+
+              {/* Bottom Value */}
+              <div>
+                <label className="block text-[11px] text-white/60 mb-1">Value</label>
+                <input
+                  type="text"
+                  value={card.value}
+                  onChange={(e) => handleInfoCardChange(index, "value", e.target.value)}
+                  placeholder="e.g. abc@gmail.com"
+                  required
+                  className="w-full rounded-lg border border-white/10 bg-[#111111] px-3 py-2 text-sm text-white outline-none focus:border-[#FF5C00]"
+                />
+              </div>
+
+              <div className="flex justify-end gap-1.5 pt-2 border-t border-white/5">
                 <button
                   type="button"
                   onClick={() => moveInfoCard(index, "up")}
                   disabled={index === 0}
-                  className="p-1.5 rounded bg-white/5 hover:bg-white/10 text-white/70 disabled:opacity-30 cursor-pointer"
-                  title="Move Up"
+                  className="px-2.5 py-1 rounded bg-white/5 text-xs text-white/70 disabled:opacity-30 cursor-pointer"
                 >
-                  <ArrowUp size={14} />
+                  ↑ Move Up
                 </button>
                 <button
                   type="button"
                   onClick={() => moveInfoCard(index, "down")}
                   disabled={index === form.infoCards.length - 1}
-                  className="p-1.5 rounded bg-white/5 hover:bg-white/10 text-white/70 disabled:opacity-30 cursor-pointer"
-                  title="Move Down"
+                  className="px-2.5 py-1 rounded bg-white/5 text-xs text-white/70 disabled:opacity-30 cursor-pointer"
                 >
-                  <ArrowDown size={14} />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => removeInfoCard(index)}
-                  className="p-1.5 rounded bg-red-500/10 hover:bg-red-500/20 text-red-300 cursor-pointer"
-                  title="Delete"
-                >
-                  <Trash2 size={14} />
+                  ↓ Move Down
                 </button>
               </div>
             </div>
