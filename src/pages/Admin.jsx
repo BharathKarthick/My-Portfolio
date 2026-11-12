@@ -22,18 +22,23 @@ export default function Admin() {
       }
 
       try {
-        const response = await fetch(`${API_URL}/api/settings/home`, {
+        // உண்மையான Protected Verify API மூலம் டோக்கனைச் சரிபார்த்தல்
+        const response = await fetch(`${API_URL}/api/auth/verify`, {
           headers: { Authorization: `Bearer ${savedToken}` },
         });
 
-        if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok || !data.success) {
           sessionStorage.removeItem(TOKEN_KEY);
           if (!cancelled) setToken("");
         } else if (!cancelled) {
           setToken(savedToken);
         }
       } catch {
+        sessionStorage.removeItem(TOKEN_KEY);
         if (!cancelled) {
+          setToken("");
           setError("Unable to verify your session.");
         }
       } finally {

@@ -6,12 +6,34 @@ import { Send, Linkedin, Github, Mail, CheckCircle, MapPin, User, Phone } from "
 import SEO from "../seo/SEO";
 import seoData from "../seo/seoData";
 
+const COOLDOWN_KEY = "contact_last_sent_ts";
+const COOLDOWN_MS = 60 * 1000; // 60 வினாடிகள் இடைவெளி
+
 const Contact = () => {
   const form = useRef();
   const [status, setStatus] = useState("idle");
+  const [botTrap, setBotTrap] = useState("");
+  const [rateMsg, setRateMsg] = useState("");
 
   const sendEmail = (e) => {
     e.preventDefault();
+    setRateMsg("");
+
+    // 1. Honeypot Check: பாட்கள் இந்த மறைமுக ஃபீல்டை நிரப்பினால் சைலன்ட்டாக பிளாக் செய்தல்
+    if (botTrap) {
+      setStatus("success");
+      form.current.reset();
+      return;
+    }
+
+    // 2. Cooldown Check: தொடர்ச்சியாக Spam மெயில் அனுப்புவதைத் தடுத்தல்
+    const lastSent = Number(localStorage.getItem(COOLDOWN_KEY) || 0);
+    const remaining = COOLDOWN_MS - (Date.now() - lastSent);
+    if (remaining > 0) {
+      setRateMsg(`Please wait ${Math.ceil(remaining / 1000)} seconds before sending another message.`);
+      return;
+    }
+
     const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
     const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
     const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
@@ -19,9 +41,11 @@ const Contact = () => {
       alert("Missing EmailJS config. Check .env");
       return;
     }
+
     setStatus("sending");
     emailjs.sendForm(serviceId, templateId, form.current, publicKey).then(
       () => {
+        localStorage.setItem(COOLDOWN_KEY, String(Date.now()));
         setStatus("success");
         form.current.reset();
         setTimeout(() => setStatus("idle"), 4000);
@@ -134,6 +158,18 @@ const Contact = () => {
                 </div>
               ) : (
                 <form ref={form} onSubmit={sendEmail} className="flex flex-col gap-4">
+                  {/* Hidden Honeypot Input for Bots */}
+                  <input
+                    type="text"
+                    name="website_url"
+                    value={botTrap}
+                    onChange={(e) => setBotTrap(e.target.value)}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    style={{ position: "absolute", left: "-9999px", opacity: 0 }}
+                  />
+
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     <div>
                       <label className="block font-['DM_Mono'] text-[10px] text-white/40 tracking-wider uppercase mb-1.5">
@@ -143,6 +179,7 @@ const Contact = () => {
                         type="text"
                         name="user_name"
                         placeholder="P. Bharath"
+                        maxLength={80}
                         required
                         className="w-full bg-white/4 border border-white/10 rounded-lg px-4 py-3 text-white text-xs sm:text-sm outline-none focus:border-[#FF5C00] placeholder:text-white/30 transition-colors"
                       />
@@ -155,6 +192,7 @@ const Contact = () => {
                         type="email"
                         name="user_email"
                         placeholder="hello@example.com"
+                        maxLength={120}
                         required
                         className="w-full bg-white/4 border border-white/10 rounded-lg px-4 py-3 text-white text-xs sm:text-sm outline-none focus:border-[#FF5C00] placeholder:text-white/30 transition-colors"
                       />
@@ -168,6 +206,7 @@ const Contact = () => {
                     <textarea
                       name="message"
                       placeholder="Tell me about your project..."
+                      maxLength={1500}
                       required
                       rows="4"
                       className="w-full bg-white/4 border border-white/10 rounded-lg px-4 py-3 text-white text-xs sm:text-sm outline-none focus:border-[#FF5C00] placeholder:text-white/30 resize-y min-h-22.5 transition-colors"
@@ -183,6 +222,10 @@ const Contact = () => {
                     {status === "sending" ? "Sending..." : "Send Message"}
                   </button>
 
+                  {rateMsg && (
+                    <p className="text-amber-400 text-xs text-center mt-1">{rateMsg}</p>
+                  )}
+
                   {status === "error" && (
                     <p className="text-red-500 text-xs text-center mt-1">Failed to send. Please try again.</p>
                   )}
@@ -194,7 +237,7 @@ const Contact = () => {
         </div>
       </main>
 
-      {/* Footer: இருபுறமும் 80% கன்டெய்னர் இடைவெளி, மொபைலில் சென்டர் அலைன்மென்ட், போதிய டாப்/பாட்டம் உயரம் */}
+      {/* Footer */}
       <footer className="w-full mx-auto border-t md:px-10 border-white/10 py-6 sm:py-7 mt-auto flex flex-col sm:flex-row justify-between items-center gap-2.5 text-center sm:text-left text-white/50 font-['DM_Mono'] text-xs sm:text-[13px]">
         <p>© 2025 P. Bharath. Crafted with care in Chennai.</p>
         <p>

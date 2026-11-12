@@ -2,6 +2,9 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
+import helmet from "helmet";
+import hpp from "hpp";
+import { rateLimit } from "express-rate-limit";
 import { v2 as cloudinary } from "cloudinary";
 import dns from "node:dns";
 
@@ -23,21 +26,80 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// 1. மிக முக்கியமானது: CORS மற்றும் JSON Parser-ஐ முதலில் வைக்க வேண்டும்
-// CORS Configuration
+// 1. Render போன்ற Reverse Proxy-களில் உண்மையான User IP-ஐக் கண்டறிய
+app.set("trust proxy", 1);
+
+// 2. X-Powered-By header-ஐ மறைத்தல்
+app.disable("x-powered-by");
+
+// 3. Helmet மூலம் HTTP Security Headers அமைத்தல்
 app.use(
-  cors({
-    origin: [
-      process.env.FRONTEND_URL || "http://localhost:5173",
-      "https://pbharathportfolio.netlify.app"
-    ],
-    credentials: true, // Cookies or headers anuppum pothu ithu thevai padum
+  helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" },
   })
 );
 
-app.use(express.json({ limit: "1mb" }));
+// 4. Strict CORS Configuration
+const allowedOrigins = [
+  "https://pbharathportfolio.netlify.app",
+  process.env.FRONTEND_URL,
+  ...(process.env.NODE_ENV !== "production" ? ["http://localhost:5173"] : []),
+].filter(Boolean);
 
-// 2. அதன்பிறகு அனைத்து API Routes-ஐயும் இணைக்க வேண்டும்
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
+
+// 5. Global API Rate Limiter
+const globalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 150,
+  standardHeaders: "draft-8",
+  legacyHeaders: false,
+  message: {
+    success: false,
+    message: "Too many requests from this IP, please try again later.",
+  },
+});
+app.use("/api", globalLimiter);
+
+// 6. Body Parser & Size Limit
+app.use(express.json({ limit: "200kb" }));
+app.use(express.urlencoded({ extended: true, limit: "200kb" }));
+
+// 7. Express 5 Compatible NoSQL Injection Sanitizer (req.body & req.params-ல் '$' மற்றும் '.' கீகளை நீக்கும்)
+function sanitizeObject(obj) {
+  if (!obj || typeof obj !== "object") return;
+  for (const key of Object.keys(obj)) {
+    if (key.startsWith("$") || key.includes(".")) {
+      delete obj[key];
+    } else if (typeof obj[key] === "object") {
+      sanitizeObject(obj[key]);
+    }
+  }
+}
+
+app.use((req, _res, next) => {
+  if (req.body) sanitizeObject(req.body);
+  if (req.params) sanitizeObject(req.params);
+  next();
+});
+
+// 8. HTTP Parameter Pollution தடுப்பு
+app.use(hpp());
+
+// 9. API Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/uploads", uploadRoutes);
 app.use("/api/settings", settingsRoutes);
@@ -70,6 +132,22 @@ app.get("/api/health", (_req, res) => {
     server: "running",
     database:
       mongoose.connection.readyState === 1 ? "connected" : "disconnected",
+  });
+});
+
+// 10. Global Error Handler
+app.use((err, _req, res, _next) => {
+  if (err.message === "Not allowed by CORS") {
+    return res.status(403).json({
+      success: false,
+      message: "CORS policy: Access denied",
+    });
+  }
+
+  console.error("Server Error:", err.message);
+  res.status(err.status || 500).json({
+    success: false,
+    message: "Internal server error",
   });
 });
 

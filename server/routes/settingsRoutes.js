@@ -21,7 +21,7 @@ router.get("/resume", async (_req, res) => {
 // Admin: Update resume URL
 router.put("/admin/resume", requireAdmin, async (req, res) => {
   try {
-    const { resumeUrl, resumePublicId } = req.body;
+    const { resumeUrl, resumePublicId } = req.body ?? {};
     if (
       typeof resumeUrl !== "string" ||
       !resumeUrl.startsWith("https://res.cloudinary.com/") ||
@@ -43,7 +43,7 @@ router.put("/admin/resume", requireAdmin, async (req, res) => {
         },
         $setOnInsert: { key: "global" },
       },
-      { returnDocument: "after", upsert: true, runValidators: true },
+      { returnDocument: "after", upsert: true, runValidators: true }
     );
 
     res.json({
@@ -94,21 +94,51 @@ router.put("/admin/home", requireAdmin, async (req, res) => {
     const { roleTitles, location, experienceYears, terminalName } = req.body ?? {};
 
     if (!Array.isArray(roleTitles) || roleTitles.length === 0) {
-      return res.status(400).json({ success: false, message: "At least one role title is required" });
+      return res.status(400).json({
+        success: false,
+        message: "At least one role title is required",
+      });
     }
+
+    const cleanRoles = roleTitles
+      .filter((t) => typeof t === "string" && t.trim().length > 0)
+      .map((t) => t.trim());
+
+    if (cleanRoles.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Valid role titles are required",
+      });
+    }
+
+    if (typeof terminalName !== "string" || !terminalName.trim()) {
+      return res.status(400).json({
+        success: false,
+        message: "Display name is required",
+      });
+    }
+
+    const cleanLocation =
+      typeof location === "string" && location.trim()
+        ? location.trim()
+        : "Chennai, Tamil Nadu, India";
+
+    const cleanExperience = Number.isFinite(Number(experienceYears))
+      ? Math.max(0, Math.floor(Number(experienceYears)))
+      : 0;
 
     const settings = await SiteSettings.findOneAndUpdate(
       { key: "global" },
       {
         $set: {
-          "home.roleTitles": roleTitles.map((t) => t.trim()),
-          "home.location": (location || "Chennai, Tamil Nadu, India").trim(),
-          "home.experienceYears": Number(experienceYears) || 0,
+          "home.roleTitles": cleanRoles,
+          "home.location": cleanLocation,
+          "home.experienceYears": cleanExperience,
           "home.terminalName": terminalName.trim(),
         },
         $setOnInsert: { key: "global" },
       },
-      { upsert: true, returnDocument: "after", runValidators: true },
+      { upsert: true, returnDocument: "after", runValidators: true }
     );
 
     res.json({

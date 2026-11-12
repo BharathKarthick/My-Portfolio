@@ -8,7 +8,11 @@ const Skill      = lazy(() => import("./pages/Skill"));
 const Experience = lazy(() => import("./pages/Experience"));
 const Projects   = lazy(() => import("./pages/Projects"));
 const Contact    = lazy(() => import("./pages/Contact"));
-const Admin      = lazy(() => import("./pages/Admin")); // <-- Admin-ஐ இம்போர்ட் செய்யவும்
+const Admin      = lazy(() => import("./pages/Admin"));
+
+// .env ஃபைலில் இருந்து ரகசிய Admin Path-ஐ எடுத்தல் (இல்லையெனில் fallback path)
+const RAW_ADMIN_PATH = import.meta.env.VITE_ADMIN_PATH || "/vault-86";
+const ADMIN_PATH = RAW_ADMIN_PATH.startsWith("/") ? RAW_ADMIN_PATH : `/${RAW_ADMIN_PATH}`;
 
 const Loader = () => (
   <div style={{ minHeight: '100vh', background: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -32,15 +36,15 @@ function App() {
       <HashRouter>
         <Suspense fallback={<Loader />}>
           <Routes>
-            <Route path="/"           element={<Home />} />
-            <Route path="/home"       element={<Home />} />
-            <Route path="/about"      element={<About />} />
-            <Route path="/skill"      element={<Skill />} />
-            <Route path="/experience" element={<Experience />} />
-            <Route path="/projects"   element={<Projects />} />
-            <Route path="/contact"    element={<Contact />} />
-            <Route path="/admin/*"    element={<Admin />} /> {/* <-- Admin Route */}
-            <Route path="*"           element={<Navigate to="/" replace />} />
+            <Route path="/"                element={<Home />} />
+            <Route path="/home"            element={<Home />} />
+            <Route path="/about"           element={<About />} />
+            <Route path="/skill"           element={<Skill />} />
+            <Route path="/experience"      element={<Experience />} />
+            <Route path="/projects"        element={<Projects />} />
+            <Route path="/contact"         element={<Contact />} />
+            <Route path={`${ADMIN_PATH}/*`} element={<Admin />} />
+            <Route path="*"                element={<Navigate to="/" replace />} />
           </Routes>
         </Suspense>
       </HashRouter>

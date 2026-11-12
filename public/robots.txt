@@ -1,6 +1,5 @@
 User-agent: *
 Allow: /
 Disallow: /admin
-Disallow: /admin/*
 
 Sitemap: https://pbharathportfolio.netlify.app/sitemap.xml
